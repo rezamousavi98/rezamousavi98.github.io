@@ -154,22 +154,41 @@
     .metric-note { display: block; margin-top: 2px; color: #526177; font-size: .59rem; letter-spacing: .02em; }
 
     /* Projects */
-    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .project-card { position: relative; overflow: hidden; border-radius: 20px; transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s; }
-    .project-card::after { content: ""; position: absolute; inset: -1px; z-index: -1; opacity: 0; border-radius: inherit; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(34,211,238,.18), transparent 40%); transition: opacity .3s; }
-    .project-card:hover { transform: translateY(-7px); border-color: rgba(34,211,238,.22); box-shadow: 0 28px 70px rgba(0,0,0,.34), 0 0 35px rgba(34,211,238,.06); }
+    .projects-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+    .project-card { --project-accent: var(--cyan); position: relative; isolation: isolate; grid-column: span 6; display: flex; min-width: 0; flex-direction: column; overflow: hidden; border-radius: 22px; transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s; }
+    .project-card:nth-child(2), .project-card:nth-child(5) { --project-accent: #3b82f6; }
+    .project-card:nth-child(3), .project-card:nth-child(6) { --project-accent: #8b5cf6; }
+    .project-card::before { content: ""; position: absolute; z-index: 3; top: 0; right: 12%; left: 12%; height: 1px; opacity: .55; background: linear-gradient(90deg, transparent, var(--project-accent), transparent); box-shadow: 0 0 15px var(--project-accent); transition: right .35s, left .35s, opacity .35s; }
+    .project-card::after { content: ""; position: absolute; z-index: 2; inset: 0; opacity: 0; border-radius: inherit; background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--project-accent) 12%, transparent), transparent 44%); transition: opacity .3s; pointer-events: none; }
+    .project-card > * { position: relative; z-index: 1; }
+    .project-card:hover { transform: translateY(-7px); border-color: color-mix(in srgb, var(--project-accent) 25%, transparent); box-shadow: 0 28px 70px rgba(0,0,0,.34), 0 0 38px color-mix(in srgb, var(--project-accent) 7%, transparent); }
+    .project-card:hover::before { right: 3%; left: 3%; opacity: .9; }
     .project-card:hover::after { opacity: 1; }
-    .project-visual { position: relative; height: 205px; overflow: hidden; border-bottom: 1px solid var(--border); background: radial-gradient(circle at 70% 20%, rgba(59,130,246,.13), transparent 42%), #09111f; }
-    .project-visual svg { width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
-    .project-card:hover .project-visual svg { transform: scale(1.04); }
-    .project-number { position: absolute; top: 16px; right: 18px; color: rgba(255,255,255,.18); font-size: .68rem; letter-spacing: .15em; }
-    .project-content { padding: 25px; }
-    .project-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
-    .project-heading h3 { margin: 0; color: #fff; font-size: 1.3rem; letter-spacing: -.025em; }
-    .role-badge { flex: none; padding: 5px 8px; border: 1px solid rgba(139,92,246,.2); border-radius: 7px; background: rgba(139,92,246,.07); color: #c4b5fd; font-size: .61rem; font-weight: 600; }
-    .project-content p { min-height: 106px; margin: 15px 0 18px; color: var(--muted); font-size: .86rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
-    .chip { padding: 5px 9px; border: 1px solid var(--border); border-radius: 999px; color: #b6c3d4; background: rgba(255,255,255,.025); font-size: .65rem; }
+    .project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); min-height: 332px; }
+    .project-card.featured.reverse { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
+    .project-card.featured.reverse .project-visual { order: 2; border-right: 0; border-left: 1px solid var(--border); }
+    .project-card.featured.reverse .project-content { order: 1; }
+    .project-visual { position: relative; height: 218px; overflow: hidden; border-bottom: 1px solid var(--border); background: radial-gradient(circle at 70% 20%, color-mix(in srgb, var(--project-accent) 14%, transparent), transparent 42%), #09111f; }
+    .project-visual::before { content: ""; position: absolute; z-index: 2; inset: 0; background: linear-gradient(115deg, transparent 25%, rgba(255,255,255,.025) 48%, transparent 65%); transform: translateX(-100%); transition: transform .8s ease; pointer-events: none; }
+    .project-visual::after { content: ""; position: absolute; z-index: 1; inset: 0; box-shadow: inset 0 0 70px rgba(2,6,23,.38); pointer-events: none; }
+    .project-card:hover .project-visual::before { transform: translateX(100%); }
+    .project-card.featured .project-visual { height: 100%; min-height: 332px; border-right: 1px solid var(--border); border-bottom: 0; }
+    .project-visual svg { width: 100%; height: 100%; transition: transform .7s cubic-bezier(.2,.8,.2,1), filter .4s; }
+    .project-card:hover .project-visual svg { transform: scale(1.045); filter: saturate(1.15); }
+    .project-number { position: absolute; z-index: 3; top: 17px; right: 18px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.08); border-radius: 999px; color: #718096; background: rgba(7,11,20,.6); font-size: .58rem; font-weight: 600; letter-spacing: .14em; backdrop-filter: blur(8px); }
+    .project-content { display: flex; flex: 1; flex-direction: column; padding: 27px; }
+    .project-card.featured .project-content { justify-content: center; padding: clamp(30px, 4vw, 48px); }
+    .project-category { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 13px; color: var(--project-accent); font-size: .62rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .project-category::before { content: ""; width: 16px; height: 1px; background: currentColor; box-shadow: 0 0 8px currentColor; }
+    .project-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }
+    .project-heading h3 { margin: 0; color: #fff; font-size: 1.34rem; line-height: 1.18; letter-spacing: -.035em; }
+    .project-card.featured .project-heading h3 { font-size: clamp(1.65rem, 3vw, 2.15rem); }
+    .role-badge { flex: none; max-width: 150px; padding: 5px 8px; border: 1px solid color-mix(in srgb, var(--project-accent) 20%, transparent); border-radius: 7px; background: color-mix(in srgb, var(--project-accent) 6%, transparent); color: color-mix(in srgb, var(--project-accent) 74%, white); font-size: .59rem; font-weight: 600; line-height: 1.35; text-align: right; }
+    .project-content p { margin: 16px 0 22px; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+    .project-card.featured .project-content p { max-width: 560px; color: #a9b7ca; font-size: .92rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+    .chip { padding: 5px 9px; border: 1px solid var(--border); border-radius: 7px; color: #aebcd0; background: rgba(255,255,255,.025); font-size: .63rem; transition: color .2s, border-color .2s, background .2s; }
+    .chip:hover { color: #fff; border-color: color-mix(in srgb, var(--project-accent) 24%, transparent); background: color-mix(in srgb, var(--project-accent) 5%, transparent); }
     /* Skills */
     .skills-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .skill-card { --skill-accent: var(--cyan); position: relative; isolation: isolate; display: grid; grid-template-columns: 52px 150px minmax(0, 1fr); align-items: center; gap: 16px; overflow: hidden; padding: 22px 24px 22px 28px; border-radius: 18px; transition: transform .3s, border-color .3s, box-shadow .3s; }
@@ -229,8 +248,15 @@
       .about-index { display: none; }
       .about-copy::before { display: none; }
       .about-copy { max-width: 780px; }
+      .project-card.featured .project-content { padding: 32px; }
       .contact-grid { grid-template-columns: 1fr; }
       .contact-card { min-height: 72px; }
+    }
+    @media (max-width: 820px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card, .project-card.featured, .project-card.featured.reverse { grid-column: 1 / -1; display: flex; min-height: 0; }
+      .project-card.featured.reverse .project-visual, .project-card.featured .project-visual { order: 0; height: 225px; min-height: 225px; border-right: 0; border-bottom: 1px solid var(--border); border-left: 0; }
+      .project-card.featured.reverse .project-content, .project-card.featured .project-content { order: 1; }
     }
     @media (max-width: 720px) {
       :root { --nav-h: 68px; --page-gutter: 20px; }
@@ -257,8 +283,9 @@
       .metrics { gap: 12px; margin-top: 30px; }
       .metric { min-height: 148px; }
       .projects-grid { gap: 16px; }
-      .project-visual { height: 180px; }
+      .project-visual, .project-card.featured .project-visual, .project-card.featured.reverse .project-visual { height: 185px; min-height: 185px; }
       .project-content { padding: 22px; }
+      .project-card.featured .project-content { padding: 25px 22px; }
       .project-content p { min-height: 0; }
       .skill-card { grid-template-columns: 44px minmax(0, 1fr); gap: 13px; padding: 20px; }
       .skill-icon { width: 40px; height: 40px; }
@@ -279,6 +306,7 @@
       .hero-art { width: calc(100% + 10px); margin-left: -5px; }
       .project-heading { flex-direction: column; }
       .project-heading h3 { font-size: 1.18rem; }
+      .project-card.featured .project-heading h3 { font-size: 1.48rem; }
       .role-badge { align-self: flex-start; }
       .project-content p { font-size: .82rem; line-height: 1.65; }
       .skill-list { gap: 6px; }
@@ -293,7 +321,7 @@
       .hero-subtitle { min-height: 76px; }
       .coordinate { display: none; }
       .metric { padding: 17px; }
-      .project-visual { height: 158px; }
+      .project-visual, .project-card.featured .project-visual, .project-card.featured.reverse .project-visual { height: 158px; min-height: 158px; }
       .project-content { padding: 19px; }
       .skill-card { padding: 17px; }
       .contact-shell { padding-inline: 15px; }
@@ -483,16 +511,16 @@
   <script>
     /* Project data and lightweight SVG thumbnails */
     const projects = [
-      { title: 'Geotajak', role: 'Developer', desc: 'An enterprise-grade open-source spatial information platform designed to manage, integrate, visualize, and share geographic information across organizations using standards-based GIS technologies.', tech: ['Angular','OpenLayers','GeoServer','REST API','OGC'], kind: 0 },
-      { title: 'Fleet Management System', role: 'Frontend Lead · Developer', desc: 'A real-time fleet monitoring platform built on Traccar for high-frequency live tracking, operational monitoring, route visualization, and large-scale location updates.', tech: ['Angular','OpenLayers','RxJS'], kind: 1 },
-      { title: 'Geoportal', role: 'Frontend Lead · Developer', desc: 'A citizen-oriented spatial portal for maps, layers, spatial analysis, and public geographic services, with administration tools for publishing and configuration.', tech: ['Angular','GeoServer','OpenLayers','OGC','Responsive Design'], kind: 2 },
-      { title: 'Smart Drilling Management', role: 'Frontend Lead', desc: 'A GIS-powered platform that digitizes permit workflows, prevents underground utility conflicts, and improves cross-organization coordination through spatial analysis.', tech: ['Angular','GIS','OpenLayers','REST API'], kind: 3 },
-      { title: 'Geonet', role: 'Frontend Lead · Developer', desc: 'A centralized spatial data catalog for discovering, organizing, managing, and sharing geographic datasets through a unified enterprise reference platform.', tech: ['Angular','GeoServer','OGC'], kind: 4 },
-      { title: 'Embedded Map', role: 'Developer', desc: 'A lightweight configurable mapping component that gives external systems advanced GIS layers, basemaps, tools, controls, and visualizations with minimal integration effort.', tech: ['Angular','OpenLayers','TypeScript'], kind: 5 }
+      { title: 'Geotajak', category: 'Spatial Infrastructure', role: 'Developer', desc: 'An enterprise-grade open-source spatial information platform designed to manage, integrate, visualize, and share geographic information across organizations using standards-based GIS technologies.', tech: ['Angular','OpenLayers','GeoServer','REST API','OGC'], kind: 0 },
+      { title: 'Fleet Management System', category: 'Real-time Intelligence', role: 'Frontend Lead · Developer', desc: 'A real-time fleet monitoring platform built on Traccar for high-frequency live tracking, operational monitoring, route visualization, and large-scale location updates.', tech: ['Angular','OpenLayers','RxJS'], kind: 1 },
+      { title: 'Geoportal', category: 'Public Spatial Services', role: 'Frontend Lead · Developer', desc: 'A citizen-oriented spatial portal for maps, layers, spatial analysis, and public geographic services, with administration tools for publishing and configuration.', tech: ['Angular','GeoServer','OpenLayers','OGC','Responsive Design'], kind: 2 },
+      { title: 'Smart Drilling Management', category: 'Operations & Permits', role: 'Frontend Lead', desc: 'A GIS-powered platform that digitizes permit workflows, prevents underground utility conflicts, and improves cross-organization coordination through spatial analysis.', tech: ['Angular','GIS','OpenLayers','REST API'], kind: 3 },
+      { title: 'Geonet', category: 'Spatial Data Discovery', role: 'Frontend Lead · Developer', desc: 'A centralized spatial data catalog for discovering, organizing, managing, and sharing geographic datasets through a unified enterprise reference platform.', tech: ['Angular','GeoServer','OGC'], kind: 4 },
+      { title: 'Embedded Map', category: 'Embeddable GIS', role: 'Developer', desc: 'A lightweight configurable mapping component that gives external systems advanced GIS layers, basemaps, tools, controls, and visualizations with minimal integration effort.', tech: ['Angular','OpenLayers','TypeScript'], kind: 5 }
     ];
 
     const visual = (kind) => {
-      const base = `<svg viewBox="0 0 520 220" aria-hidden="true"><defs><pattern id="g${kind}" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0v24" fill="none" stroke="#22d3ee" stroke-opacity=".07"/></pattern><linearGradient id="l${kind}"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient><filter id="f${kind}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="520" height="220" fill="url(#g${kind})"/>`;
+      const base = `<svg viewBox="0 0 520 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="g${kind}" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0v24" fill="none" stroke="#22d3ee" stroke-opacity=".07"/></pattern><linearGradient id="l${kind}"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient><filter id="f${kind}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="520" height="220" fill="url(#g${kind})"/>`;
       const art = [
         `<path d="M54 155 102 75l77 32 61-61 86 44 63-20 72 78-82 33-85-29-82 28-73-37Z" fill="#0891b2" fill-opacity=".08" stroke="url(#l0)"/><path d="m94 145 87-49 77 36 86-52 89 52" fill="none" stroke="#67e8f9" stroke-dasharray="5 8"/><g fill="#22d3ee" filter="url(#f0)"><circle cx="94" cy="145" r="4"/><circle cx="181" cy="96" r="4"/><circle cx="258" cy="132" r="4"/><circle cx="344" cy="80" r="4"/><circle cx="433" cy="132" r="4"/></g>`,
         `<path d="M42 165C135 58 184 189 280 91s143 21 200-31" fill="none" stroke="url(#l1)" stroke-width="3"/><path d="M42 165C135 58 184 189 280 91s143 21 200-31" fill="none" stroke="#67e8f9" stroke-dasharray="4 10"/><g transform="translate(253 69)" fill="#0f172a" stroke="#22d3ee"><path d="M0 13 8 0h29l10 13v17H0Z"/><circle cx="12" cy="30" r="7"/><circle cx="36" cy="30" r="7"/></g><circle cx="400" cy="119" r="7" fill="#22d3ee" filter="url(#f1)"/>`,
@@ -504,15 +532,19 @@
       return base + art + '</svg>';
     };
 
-    document.getElementById('projectsGrid').innerHTML = projects.map((p, i) => `
-      <article class="project-card glass reveal" style="transition-delay:${(i % 2) * .08}s">
-        <div class="project-visual">${visual(p.kind)}<span class="project-number">0${i + 1} / 06</span></div>
+    document.getElementById('projectsGrid').innerHTML = projects.map((p, i) => {
+      const featured = i === 0 || i === 3;
+      return `
+      <article class="project-card glass reveal${featured ? ' featured' : ''}${i === 3 ? ' reverse' : ''}" style="transition-delay:${featured ? 0 : (i % 2) * .08}s">
+        <div class="project-visual">${visual(p.kind)}<span class="project-number">PROJECT · 0${i + 1}</span></div>
         <div class="project-content">
+          <span class="project-category">${p.category}</span>
           <div class="project-heading"><h3>${p.title}</h3><span class="role-badge">${p.role}</span></div>
           <p>${p.desc}</p>
           <div class="chips">${p.tech.map(t => `<span class="chip">${t}</span>`).join('')}</div>
         </div>
-      </article>`).join('');
+      </article>`;
+    }).join('');
 
     /* Scroll-based UI */
     const nav = document.getElementById('navbar');
