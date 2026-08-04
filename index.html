@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Mohammad Reza — Senior Front-End and WebGIS Engineer building scalable, high-performance geospatial products." />
   <meta name="theme-color" content="#070B14" />
-  <title>Mohammad Reza — Front-End &amp; WebGIS Engineer</title>
+  <title>Mohammad Reza Mousavi — Front-End</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
@@ -139,21 +140,6 @@
     .metric strong { display: block; color: #fff; font-size: 2rem; line-height: 1.1; }
     .metric span { color: var(--muted); font-size: .76rem; }
 
-    /* Experience */
-    .timeline { position: relative; max-width: 920px; margin-inline: auto; }
-    .timeline::before { content: ""; position: absolute; top: 0; bottom: 0; left: 20px; width: 1px; background: linear-gradient(var(--cyan), rgba(59,130,246,.35), transparent); box-shadow: 0 0 12px rgba(34,211,238,.3); }
-    .timeline-item { position: relative; padding-left: 68px; }
-    .timeline-node { position: absolute; z-index: 1; top: 35px; left: 13px; width: 15px; height: 15px; border: 3px solid var(--bg); border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 5px rgba(34,211,238,.09), 0 0 20px var(--cyan); }
-    .experience-card { padding: clamp(25px, 5vw, 44px); border-radius: 22px; }
-    .experience-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 26px; border-bottom: 1px solid var(--border); }
-    .experience-top h3 { margin: 5px 0 3px; font-size: 1.7rem; letter-spacing: -.03em; }
-    .role { color: var(--cyan); font-size: .85rem; font-weight: 600; }
-    .meta { text-align: right; color: var(--muted); font-size: .78rem; }
-    .company-desc { margin: 25px 0 22px; color: #cbd5e1; }
-    .responsibilities { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
-    .responsibilities li { position: relative; padding-left: 22px; color: var(--muted); font-size: .91rem; }
-    .responsibilities li::before { content: ""; position: absolute; top: .68em; left: 0; width: 7px; height: 7px; border: 1px solid var(--cyan); transform: rotate(45deg); }
-
     /* Projects */
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .project-card { position: relative; overflow: hidden; border-radius: 20px; transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s; }
@@ -171,13 +157,6 @@
     .project-content p { min-height: 106px; margin: 15px 0 18px; color: var(--muted); font-size: .86rem; }
     .chips { display: flex; flex-wrap: wrap; gap: 7px; }
     .chip { padding: 5px 9px; border: 1px solid var(--border); border-radius: 999px; color: #b6c3d4; background: rgba(255,255,255,.025); font-size: .65rem; }
-    .project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 23px; padding-top: 18px; border-top: 1px solid var(--border); }
-    .project-link { display: inline-flex; align-items: center; gap: 7px; color: var(--cyan); font-size: .76rem; font-weight: 600; }
-    .project-link svg { transition: transform .25s; }
-    .project-link:hover svg { transform: translateX(4px); }
-    .github-muted { color: #64748b; transition: color .2s; }
-    .github-muted:hover { color: #cbd5e1; }
-
     /* Skills */
     .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .skill-card { padding: 26px 22px; border-radius: 18px; transition: transform .3s, border-color .3s; }
@@ -185,15 +164,9 @@
     .skill-icon { display: grid; width: 42px; height: 42px; margin-bottom: 21px; place-items: center; border: 1px solid rgba(34,211,238,.15); border-radius: 12px; color: var(--cyan); background: rgba(34,211,238,.055); }
     .skill-card h3 { margin: 0 0 20px; font-size: 1rem; }
     .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill-pill { padding: 6px 9px; border: 1px solid var(--border); border-radius: 7px; color: var(--muted); background: rgba(255,255,255,.018); font-size: .7rem; transition: color .2s, border-color .2s; }
+    .skill-pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px 6px 6px; border: 1px solid var(--border); border-radius: 7px; color: var(--muted); background: rgba(255,255,255,.018); font-size: .7rem; transition: color .2s, border-color .2s, transform .2s; }
+    .skill-pill::before { content: attr(data-icon); display: grid; width: 19px; height: 19px; flex: none; place-items: center; border: 1px solid color-mix(in srgb, var(--icon, var(--cyan)) 38%, transparent); border-radius: 5px; color: var(--icon, var(--cyan)); background: color-mix(in srgb, var(--icon, var(--cyan)) 10%, transparent); font-size: .54rem; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
     .skill-pill:hover { color: #fff; border-color: rgba(34,211,238,.25); }
-    .skill-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
-    .skill-bar { padding: 19px 20px; border-radius: 14px; }
-    .bar-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: .76rem; }
-    .bar-meta span:last-child { color: var(--cyan); }
-    .bar-track { height: 3px; overflow: hidden; border-radius: 3px; background: rgba(255,255,255,.06); }
-    .bar-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--cyan), var(--blue)); box-shadow: 0 0 12px var(--cyan); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
-
     /* Contact */
     .contact-shell { position: relative; overflow: hidden; padding: clamp(32px, 6vw, 70px); border-radius: 28px; text-align: center; }
     .contact-shell::before { content: ""; position: absolute; width: 400px; height: 400px; top: -250px; left: 50%; border-radius: 50%; background: rgba(34,211,238,.16); filter: blur(90px); transform: translateX(-50%); }
@@ -214,6 +187,8 @@
 
     footer { padding: 28px 0 38px; border-top: 1px solid var(--border); color: #64748b; font-size: .74rem; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .availability { display: inline-flex; align-items: center; gap: 9px; color: #94a3b8; }
+    .availability::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 11px var(--green); animation: pulse 2s infinite; }
     .back-top { position: fixed; z-index: 30; right: 22px; bottom: 22px; display: grid; width: 43px; height: 43px; place-items: center; border: 1px solid rgba(34,211,238,.25); border-radius: 12px; color: var(--cyan); background: rgba(7,11,20,.75); opacity: 0; transform: translateY(16px); transition: .3s; pointer-events: none; backdrop-filter: blur(12px); }
     .back-top.visible { opacity: 1; transform: none; pointer-events: auto; }
     .back-top:hover { box-shadow: 0 0 25px rgba(34,211,238,.15); }
@@ -241,14 +216,9 @@
       .hero { min-height: auto; padding-top: 112px; gap: 22px; }
       .hero h1 { font-size: clamp(3.1rem, 17vw, 5rem); }
       .hero-art { width: min(430px, 100%); }
-      .metrics, .projects-grid, .skill-bars { grid-template-columns: 1fr; }
+      .metrics, .projects-grid { grid-template-columns: 1fr; }
       .projects-grid { gap: 16px; }
       .project-content p { min-height: 0; }
-      .experience-top { flex-direction: column; }
-      .meta { text-align: left; }
-      .timeline-item { padding-left: 41px; }
-      .timeline::before { left: 8px; }
-      .timeline-node { left: 1px; }
       .footer-inner { flex-direction: column; text-align: center; }
     }
     @media (max-width: 500px) {
@@ -273,8 +243,7 @@
     <nav class="container" aria-label="Main navigation">
       <a class="logo" href="#home" aria-label="MMRZ home">MMRZ</a>
       <div class="nav-links" id="navLinks">
-        <a class="nav-link active" href="#home">Home</a>
-        <a class="nav-link" href="#experience">Experience</a>
+        <a class="nav-link" href="#about">About</a>
         <a class="nav-link" href="#projects">Projects</a>
         <a class="nav-link" href="#skills">Skills</a>
         <a class="nav-link" href="#contact">Contact</a>
@@ -293,17 +262,17 @@
         <p class="hero-subtitle">I build <span class="typed" id="typed"></span><span class="caret"></span></p>
         <p class="hero-copy">I'm a Front-End Engineer specialized in building high-performance WebGIS platforms, interactive mapping applications, reusable UI architectures, and large-scale enterprise spatial systems. I turn complex geospatial workflows into intuitive, maintainable experiences.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary ripple-button" id="resumeButton">
+          <a class="btn btn-primary ripple-button" href="assets/MohammadrezaMousavi.pdf" download="Mohammad-Reza-Mousavi-CV.pdf">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" /></svg>
             Download Resume
-          </button>
+          </a>
           <a class="btn ripple-button" href="#contact">Contact Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6" /></svg></a>
         </div>
         <div class="socials" aria-label="Social profiles">
           <a class="social" href="https://github.com/rezamousavi98" target="_blank" rel="noreferrer" aria-label="GitHub">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg>
           </a>
-          <a class="social" href="http://linkedin.com/in/mohammadreza-mousavi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <a class="social" href="https://linkedin.com/in/mohammadreza-mousavi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5.2 7.3H1.6V22h3.6V7.3ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 13.6c0-4.4-2.3-6.5-5.4-6.5-2.5 0-3.6 1.4-4.2 2.3V7.3H9.2V22h3.6v-7.3c0-1.9.4-3.8 2.8-3.8 2.4 0 2.4 2.2 2.4 3.9V22h3.6l.8-8.4Z" /></svg>
           </a>
           <a class="social" href="mailto:rezamousavi354@gmail.com" aria-label="Email">
@@ -369,37 +338,6 @@
       </div>
     </section>
 
-    <section class="section" id="experience">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="section-kicker">Where I've made an impact</p>
-          <h2 class="section-title">Experience</h2>
-          <p class="section-lead">Engineering reliable spatial products at the intersection of frontend architecture, mapping, and real-time data.</p>
-        </div>
-        <div class="timeline">
-          <article class="timeline-item reveal">
-            <span class="timeline-node" aria-hidden="true"></span>
-            <div class="experience-card glass">
-              <div class="experience-top">
-                <div><span class="role">Front-End Developer · Frontend Lead</span><h3>Saafaa</h3></div>
-                <div class="meta">July 2021 — Present<br />Yazd, Iran</div>
-              </div>
-              <p class="company-desc">Knowledge-based software company specializing in enterprise WebGIS solutions and spatial information systems.</p>
-              <ul class="responsibilities">
-                <li>Developed and maintained enterprise-scale Angular WebGIS applications.</li>
-                <li>Led frontend development for multiple GIS products and coordinated reusable architecture across projects.</li>
-                <li>Designed modular component libraries and shared submodules to improve scalability and maintainability.</li>
-                <li>Optimized rendering performance for large geospatial datasets and real-time mapping applications.</li>
-                <li>Diagnosed and resolved memory leaks and performance bottlenecks in long-running fleet tracking systems.</li>
-                <li>Built responsive interfaces integrated with GeoServer, OpenLayers, REST APIs, and OGC standards.</li>
-                <li>Collaborated with backend and GIS teams to deliver production-ready enterprise mapping solutions.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="projects">
       <div class="container">
         <div class="section-head reveal">
@@ -418,15 +356,10 @@
           <p class="section-lead">A practical stack shaped by years of building data-heavy, map-centric enterprise software.</p>
         </div>
         <div class="skills-grid">
-          <article class="skill-card glass reveal"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" /><path d="m8 15 4-8 4 8m-6.6-3h5.2" /></svg></div><h3>Frontend</h3><div class="skill-list"><span class="skill-pill">Angular</span><span class="skill-pill">TypeScript</span><span class="skill-pill">JavaScript</span><span class="skill-pill">HTML5</span><span class="skill-pill">CSS3</span><span class="skill-pill">SCSS</span><span class="skill-pill">TailwindCSS</span><span class="skill-pill">RxJS</span><span class="skill-pill">React</span><span class="skill-pill">REST APIs</span><span class="skill-pill">Responsive Design</span></div></article>
-          <article class="skill-card glass reveal" style="transition-delay:.08s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg></div><h3>GIS</h3><div class="skill-list"><span class="skill-pill">OpenLayers</span><span class="skill-pill">ol-ext</span><span class="skill-pill">GeoServer</span><span class="skill-pill">GeoNetwork</span><span class="skill-pill">OGC Standards</span><span class="skill-pill">Spatial Data</span><span class="skill-pill">Web Mapping</span></div></article>
-          <article class="skill-card glass reveal" style="transition-delay:.16s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H4zM8 20h8M12 16v4" /><path d="M8 9h3m2 0h3m-8 3h8" /></svg></div><h3>UI / UX</h3><div class="skill-list"><span class="skill-pill">Figma</span><span class="skill-pill">Adobe XD</span><span class="skill-pill">PrimeNG</span><span class="skill-pill">Ng-Zorro</span><span class="skill-pill">Angular Material</span><span class="skill-pill">Shadcn UI</span><span class="skill-pill">Design Systems</span></div></article>
-          <article class="skill-card glass reveal" style="transition-delay:.24s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M7 4v6m10-6v6M5 12h14v8H5z" /><path d="m9 16 2 2 4-4" /></svg></div><h3>Development</h3><div class="skill-list"><span class="skill-pill">Git</span><span class="skill-pill">GitHub</span><span class="skill-pill">GitLab</span><span class="skill-pill">Docker</span><span class="skill-pill">Jira</span><span class="skill-pill">Performance</span><span class="skill-pill">Architecture</span></div></article>
-        </div>
-        <div class="skill-bars reveal">
-          <div class="skill-bar glass"><div class="bar-meta"><span>Frontend Architecture</span><span>95%</span></div><div class="bar-track"><div class="bar-fill" data-width="95%"></div></div></div>
-          <div class="skill-bar glass"><div class="bar-meta"><span>WebGIS Engineering</span><span>92%</span></div><div class="bar-track"><div class="bar-fill" data-width="92%"></div></div></div>
-          <div class="skill-bar glass"><div class="bar-meta"><span>Performance Optimization</span><span>90%</span></div><div class="bar-track"><div class="bar-fill" data-width="90%"></div></div></div>
+          <article class="skill-card glass reveal"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" /><path d="m8 15 4-8 4 8m-6.6-3h5.2" /></svg></div><h3>Frontend</h3><div class="skill-list"><span class="skill-pill" data-icon="A" style="--icon:#ef4444">Angular</span><span class="skill-pill" data-icon="TS" style="--icon:#3b82f6">TypeScript</span><span class="skill-pill" data-icon="JS" style="--icon:#facc15">JavaScript</span><span class="skill-pill" data-icon="5" style="--icon:#f97316">HTML5</span><span class="skill-pill" data-icon="#" style="--icon:#38bdf8">CSS3</span><span class="skill-pill" data-icon="S" style="--icon:#ec4899">SCSS</span><span class="skill-pill" data-icon="TW" style="--icon:#22d3ee">TailwindCSS</span><span class="skill-pill" data-icon="Rx" style="--icon:#db2777">RxJS</span><span class="skill-pill" data-icon="⚛" style="--icon:#61dafb">React</span><span class="skill-pill" data-icon="P" style="--icon:#22d3ee">PrimeNG</span><span class="skill-pill" data-icon="NZ" style="--icon:#3b82f6">Ng-Zorro</span><span class="skill-pill" data-icon="M" style="--icon:#f59e0b">Angular Material</span><span class="skill-pill" data-icon="sh" style="--icon:#e5e7eb">Shadcn UI</span><span class="skill-pill" data-icon="{}" style="--icon:#10b981">REST APIs</span><span class="skill-pill" data-icon="↔" style="--icon:#a78bfa">Responsive Design</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.08s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg></div><h3>GIS</h3><div class="skill-list"><span class="skill-pill" data-icon="OL" style="--icon:#22c55e">OpenLayers</span><span class="skill-pill" data-icon="ol+" style="--icon:#14b8a6">ol-ext</span><span class="skill-pill" data-icon="GS" style="--icon:#84cc16">GeoServer</span><span class="skill-pill" data-icon="GN" style="--icon:#10b981">GeoNetwork</span><span class="skill-pill" data-icon="OGC" style="--icon:#38bdf8">OGC Standards</span><span class="skill-pill" data-icon="◇" style="--icon:#8b5cf6">Spatial Data</span><span class="skill-pill" data-icon="◎" style="--icon:#22d3ee">Web Mapping</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.16s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H4zM8 20h8M12 16v4" /><path d="M8 9h3m2 0h3m-8 3h8" /></svg></div><h3>UI / UX</h3><div class="skill-list"><span class="skill-pill" data-icon="F" style="--icon:#a78bfa">Figma</span><span class="skill-pill" data-icon="Xd" style="--icon:#f472b6">Adobe XD</span><span class="skill-pill" data-icon="DS" style="--icon:#22d3ee">Design Systems</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.24s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M7 4v6m10-6v6M5 12h14v8H5z" /><path d="m9 16 2 2 4-4" /></svg></div><h3>Development</h3><div class="skill-list"><span class="skill-pill" data-icon="Git" style="--icon:#f97316">Git</span><span class="skill-pill" data-icon="GH" style="--icon:#e5e7eb">GitHub</span><span class="skill-pill" data-icon="GL" style="--icon:#fb923c">GitLab</span><span class="skill-pill" data-icon="D" style="--icon:#3b82f6">Docker</span><span class="skill-pill" data-icon="J" style="--icon:#60a5fa">Jira</span><span class="skill-pill" data-icon="↗" style="--icon:#10b981">Performance</span><span class="skill-pill" data-icon="⌘" style="--icon:#8b5cf6">Architecture</span></div></article>
         </div>
       </div>
     </section>
@@ -439,15 +372,15 @@
           <p class="section-lead">I'm always interested in discussing WebGIS, frontend engineering, performance optimization, and exciting software projects.</p>
           <div class="contact-grid">
             <button class="contact-card copy-contact" data-copy="rezamousavi354@gmail.com" aria-label="Copy email address"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span><span class="contact-info"><span>Email</span><strong>rezamousavi354@gmail.com</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
-            <button class="contact-card copy-contact" data-copy="linkedin.com/in/mohammadreza-mousavi" aria-label="Copy LinkedIn profile"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5.2 7.3H1.6V22h3.6V7.3ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 13.6c0-4.4-2.3-6.5-5.4-6.5-2.5 0-3.6 1.4-4.2 2.3V7.3H9.2V22h3.6v-7.3c0-1.9.4-3.8 2.8-3.8 2.4 0 2.4 2.2 2.4 3.9V22h3.6l.8-8.4Z" /></svg></span><span class="contact-info"><span>LinkedIn</span><strong>mohammadreza-mousavi</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
-            <button class="contact-card copy-contact" data-copy="github.com/rezamousavi98" aria-label="Copy GitHub profile"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg></span><span class="contact-info"><span>GitHub</span><strong>rezamousavi98</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
+            <a class="contact-card" href="https://linkedin.com/in/mohammadreza-mousavi" target="_blank" rel="noreferrer" aria-label="Open LinkedIn profile"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5.2 7.3H1.6V22h3.6V7.3ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 13.6c0-4.4-2.3-6.5-5.4-6.5-2.5 0-3.6 1.4-4.2 2.3V7.3H9.2V22h3.6v-7.3c0-1.9.4-3.8 2.8-3.8 2.4 0 2.4 2.2 2.4 3.9V22h3.6l.8-8.4Z" /></svg></span><span class="contact-info"><span>LinkedIn</span><strong>mohammadreza-mousavi</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 5h5v5M10 14l9-9" /><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" /></svg></a>
+            <a class="contact-card" href="https://github.com/rezamousavi98" target="_blank" rel="noreferrer" aria-label="Open GitHub profile"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg></span><span class="contact-info"><span>GitHub</span><strong>rezamousavi98</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 5h5v5M10 14l9-9" /><path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" /></svg></a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer><div class="container footer-inner"><span>© 2026 Mohammad. All rights reserved.</span><span>Built with HTML, Tailwind CSS and JavaScript.</span></div></footer>
+  <footer><div class="container footer-inner"><span>© 2026 Mohammad Reza Mousavi. All rights reserved.</span><span class="availability">Available for projects</span></div></footer>
   <button class="back-top" id="backTop" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 15 6-6 6 6" /></svg></button>
   <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
 
@@ -482,7 +415,6 @@
           <div class="project-heading"><h3>${p.title}</h3><span class="role-badge">${p.role}</span></div>
           <p>${p.desc}</p>
           <div class="chips">${p.tech.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-          <div class="project-footer"><a class="github-muted" href="https://github.com/rezamousavi98" target="_blank" rel="noreferrer" aria-label="GitHub placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg></a><a class="project-link" href="#contact">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
         </div>
       </article>`).join('');
 
@@ -498,9 +430,9 @@
       progress.style.width = `${max ? y / max * 100 : 0}%`;
       nav.classList.toggle('scrolled', y > 20);
       backTop.classList.toggle('visible', y > 650);
-      let current = 'home';
+      let current = null;
       sections.forEach(section => { if (y >= section.offsetTop - 180) current = section.id; });
-      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}` || (current === 'about' && link.getAttribute('href') === '#home')));
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
     };
     addEventListener('scroll', updateScroll, { passive: true });
     updateScroll();
@@ -510,7 +442,6 @@
     const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add('visible');
-      entry.target.querySelectorAll('.bar-fill').forEach(bar => bar.style.width = bar.dataset.width);
       entry.target.querySelectorAll('.counter').forEach(counter => {
         const target = +counter.dataset.target;
         const start = performance.now();
@@ -569,13 +500,6 @@
       catch { showToast(card.dataset.copy); }
     }));
 
-    /* Single-file text résumé download */
-    document.getElementById('resumeButton').addEventListener('click', () => {
-      const resume = `MOHAMMAD REZA MOUSAVI\nFront-End / WebGIS Engineer\n\nEmail: rezamousavi354@gmail.com\nLinkedIn: linkedin.com/in/mohammadreza-mousavi\nGitHub: github.com/rezamousavi98\n\nPROFILE\nFront-End Engineer with 5+ years of experience building scalable Angular and WebGIS platforms, interactive mapping applications, reusable UI architectures, and enterprise spatial systems.\n\nEXPERIENCE\nSaafaa — Front-End Developer / Frontend Lead\nJuly 2021 — Present · Yazd, Iran\n\nCORE SKILLS\nAngular, TypeScript, JavaScript, RxJS, OpenLayers, GeoServer, GeoNetwork, OGC Standards, REST APIs, UI Architecture, Performance Optimization, Docker, Git.`;
-      const url = URL.createObjectURL(new Blob([resume], { type: 'text/plain' }));
-      const a = document.createElement('a'); a.href = url; a.download = 'Mohammad-Reza-Mousavi-Resume.txt'; a.click(); URL.revokeObjectURL(url);
-      showToast('Resume download started');
-    });
   </script>
 </body>
 </html>
