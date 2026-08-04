@@ -135,10 +135,19 @@
     .about-copy::before { content: ""; position: absolute; top: 5px; left: -28px; width: 2px; height: 78px; background: linear-gradient(var(--cyan), transparent); box-shadow: 0 0 12px var(--cyan); }
     .about-copy p { margin: 0 0 18px; color: var(--muted); font-size: 1.02rem; }
     .about-copy p:first-of-type { color: #dbeafe; font-size: 1.22rem; }
-    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
-    .metric { padding: 22px 18px; border-radius: 14px; }
-    .metric strong { display: block; color: #fff; font-size: 2rem; line-height: 1.1; }
-    .metric span { color: var(--muted); font-size: .76rem; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 38px; }
+    .metric { --metric: var(--cyan); position: relative; isolation: isolate; min-height: 166px; overflow: hidden; padding: 19px; border-radius: 18px; transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s; }
+    .metric::before { content: ""; position: absolute; z-index: -1; inset: 0; opacity: .32; background: radial-gradient(180px circle at 100% 0%, color-mix(in srgb, var(--metric) 25%, transparent), transparent 62%); }
+    .metric::after { content: ""; position: absolute; z-index: -1; right: -25px; bottom: -28px; width: 105px; height: 105px; border: 1px solid color-mix(in srgb, var(--metric) 18%, transparent); border-radius: 50%; box-shadow: 0 0 0 18px color-mix(in srgb, var(--metric) 4%, transparent), 0 0 0 36px color-mix(in srgb, var(--metric) 2%, transparent); transition: transform .45s ease; }
+    .metric:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--metric) 32%, transparent); box-shadow: 0 20px 46px rgba(0,0,0,.28), 0 0 30px color-mix(in srgb, var(--metric) 9%, transparent); }
+    .metric:hover::after { transform: scale(1.09) translate(-4px, -4px); }
+    .metric-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 19px; }
+    .metric-icon { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid color-mix(in srgb, var(--metric) 24%, transparent); border-radius: 10px; color: var(--metric); background: color-mix(in srgb, var(--metric) 8%, transparent); box-shadow: inset 0 0 15px color-mix(in srgb, var(--metric) 5%, transparent); }
+    .metric-code { color: #475569; font-size: .6rem; font-weight: 600; letter-spacing: .13em; }
+    .metric strong { display: block; color: #fff; font-size: 2.25rem; line-height: .92; letter-spacing: -.06em; }
+    .metric strong .counter { color: inherit; font-size: inherit; }
+    .metric-label { display: block; margin-top: 9px; color: #b9c7d9; font-size: .72rem; font-weight: 500; }
+    .metric-note { display: block; margin-top: 2px; color: #526177; font-size: .59rem; letter-spacing: .02em; }
 
     /* Projects */
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -158,15 +167,22 @@
     .chips { display: flex; flex-wrap: wrap; gap: 7px; }
     .chip { padding: 5px 9px; border: 1px solid var(--border); border-radius: 999px; color: #b6c3d4; background: rgba(255,255,255,.025); font-size: .65rem; }
     /* Skills */
-    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .skill-card { padding: 26px 22px; border-radius: 18px; transition: transform .3s, border-color .3s; }
-    .skill-card:hover { transform: translateY(-4px); border-color: rgba(34,211,238,.2); }
-    .skill-icon { display: grid; width: 42px; height: 42px; margin-bottom: 21px; place-items: center; border: 1px solid rgba(34,211,238,.15); border-radius: 12px; color: var(--cyan); background: rgba(34,211,238,.055); }
-    .skill-card h3 { margin: 0 0 20px; font-size: 1rem; }
-    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skills-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .skill-card { --skill-accent: var(--cyan); position: relative; isolation: isolate; display: grid; grid-template-columns: 52px 150px minmax(0, 1fr); align-items: center; gap: 16px; overflow: hidden; padding: 22px 24px 22px 28px; border-radius: 18px; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .skill-card:nth-child(2) { --skill-accent: #10b981; }
+    .skill-card:nth-child(3) { --skill-accent: #8b5cf6; }
+    .skill-card:nth-child(4) { --skill-accent: #3b82f6; }
+    .skill-card::before { content: ""; position: absolute; top: 22%; bottom: 22%; left: 0; width: 2px; border-radius: 0 3px 3px 0; background: var(--skill-accent); box-shadow: 0 0 16px var(--skill-accent); transition: top .3s, bottom .3s; }
+    .skill-card::after { content: ""; position: absolute; z-index: -1; top: -90px; left: -90px; width: 210px; height: 210px; border-radius: 50%; background: color-mix(in srgb, var(--skill-accent) 7%, transparent); filter: blur(45px); opacity: .7; }
+    .skill-card:hover { transform: translateX(5px); border-color: color-mix(in srgb, var(--skill-accent) 25%, transparent); box-shadow: 0 18px 45px rgba(0,0,0,.2); }
+    .skill-card:hover::before { top: 12%; bottom: 12%; }
+    .skill-icon { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid color-mix(in srgb, var(--skill-accent) 22%, transparent); border-radius: 12px; color: var(--skill-accent); background: color-mix(in srgb, var(--skill-accent) 7%, transparent); box-shadow: inset 0 0 18px color-mix(in srgb, var(--skill-accent) 4%, transparent); }
+    .skill-card h3 { margin: 0; color: #eef5ff; font-size: 1.05rem; letter-spacing: -.02em; }
+    .skill-card h3::after { content: "Toolset"; display: block; margin-top: 2px; color: #526177; font-size: .57rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+    .skill-list { display: flex; min-width: 0; flex-wrap: wrap; gap: 8px; }
     .skill-pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px 6px 6px; border: 1px solid var(--border); border-radius: 7px; color: var(--muted); background: rgba(255,255,255,.018); font-size: .7rem; transition: color .2s, border-color .2s, transform .2s; }
     .skill-pill::before { content: attr(data-icon); display: grid; width: 19px; height: 19px; flex: none; place-items: center; border: 1px solid color-mix(in srgb, var(--icon, var(--cyan)) 38%, transparent); border-radius: 5px; color: var(--icon, var(--cyan)); background: color-mix(in srgb, var(--icon, var(--cyan)) 10%, transparent); font-size: .54rem; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
-    .skill-pill:hover { color: #fff; border-color: rgba(34,211,238,.25); }
+    .skill-pill:hover { color: #fff; border-color: color-mix(in srgb, var(--icon, var(--cyan)) 28%, transparent); transform: translateY(-1px); }
     /* Contact */
     .contact-shell { position: relative; overflow: hidden; padding: clamp(32px, 6vw, 70px); border-radius: 28px; text-align: center; }
     .contact-shell::before { content: ""; position: absolute; width: 400px; height: 400px; top: -250px; left: 50%; border-radius: 50%; background: rgba(34,211,238,.16); filter: blur(90px); transform: translateX(-50%); }
@@ -200,7 +216,6 @@
       .about-grid { grid-template-columns: 1fr; gap: 32px; }
       .about-index { display: none; }
       .about-copy::before { display: none; }
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
       .contact-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
@@ -219,10 +234,12 @@
       .metrics, .projects-grid { grid-template-columns: 1fr; }
       .projects-grid { gap: 16px; }
       .project-content p { min-height: 0; }
+      .skill-card { grid-template-columns: 44px minmax(0, 1fr); gap: 13px; padding: 20px; }
+      .skill-icon { width: 40px; height: 40px; }
+      .skill-list { grid-column: 1 / -1; padding-top: 5px; }
       .footer-inner { flex-direction: column; text-align: center; }
     }
     @media (max-width: 500px) {
-      .skills-grid { grid-template-columns: 1fr; }
       .hero-actions .btn { width: 100%; }
       .project-heading { flex-direction: column; }
     }
@@ -330,9 +347,21 @@
             <p>I enjoy solving performance challenges, transforming GIS requirements into elegant interfaces, and building software that remains maintainable as projects grow.</p>
           </div>
           <div class="metrics">
-            <div class="metric glass"><strong><span class="counter" data-target="5">0</span>+</strong><span>Years of experience</span></div>
-            <div class="metric glass"><strong><span class="counter" data-target="6">0</span></strong><span>Enterprise platforms</span></div>
-            <div class="metric glass"><strong><span class="counter" data-target="100">0</span>%</strong><span>Geospatial focus</span></div>
+            <div class="metric glass" style="--metric:#22d3ee">
+              <div class="metric-top"><span class="metric-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2M12 2v2M12 20v2"/></svg></span><span class="metric-code">EXP_01</span></div>
+              <strong><span class="counter" data-target="5">0</span>+</strong>
+              <span class="metric-label">Years of experience</span><span class="metric-note">Building production systems</span>
+            </div>
+            <div class="metric glass" style="--metric:#3b82f6">
+              <div class="metric-top"><span class="metric-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="m4 12 8 4 8-4M4 17l8 4 8-4"/></svg></span><span class="metric-code">SYS_06</span></div>
+              <strong><span class="counter" data-target="6">0</span></strong>
+              <span class="metric-label">Enterprise platforms</span><span class="metric-note">Delivered at scale</span>
+            </div>
+            <div class="metric glass" style="--metric:#8b5cf6">
+              <div class="metric-top"><span class="metric-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M22 12h-3M12 22v-3M2 12h3"/></svg></span><span class="metric-code">GIS_100</span></div>
+              <strong><span class="counter" data-target="100">0</span>%</strong>
+              <span class="metric-label">Geospatial focus</span><span class="metric-note">Maps at the core</span>
+            </div>
           </div>
         </div>
       </div>
@@ -357,7 +386,7 @@
         </div>
         <div class="skills-grid">
           <article class="skill-card glass reveal"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" /><path d="m8 15 4-8 4 8m-6.6-3h5.2" /></svg></div><h3>Frontend</h3><div class="skill-list"><span class="skill-pill" data-icon="A" style="--icon:#ef4444">Angular</span><span class="skill-pill" data-icon="TS" style="--icon:#3b82f6">TypeScript</span><span class="skill-pill" data-icon="JS" style="--icon:#facc15">JavaScript</span><span class="skill-pill" data-icon="5" style="--icon:#f97316">HTML5</span><span class="skill-pill" data-icon="#" style="--icon:#38bdf8">CSS3</span><span class="skill-pill" data-icon="S" style="--icon:#ec4899">SCSS</span><span class="skill-pill" data-icon="TW" style="--icon:#22d3ee">TailwindCSS</span><span class="skill-pill" data-icon="Rx" style="--icon:#db2777">RxJS</span><span class="skill-pill" data-icon="⚛" style="--icon:#61dafb">React</span><span class="skill-pill" data-icon="P" style="--icon:#22d3ee">PrimeNG</span><span class="skill-pill" data-icon="NZ" style="--icon:#3b82f6">Ng-Zorro</span><span class="skill-pill" data-icon="M" style="--icon:#f59e0b">Angular Material</span><span class="skill-pill" data-icon="sh" style="--icon:#e5e7eb">Shadcn UI</span><span class="skill-pill" data-icon="{}" style="--icon:#10b981">REST APIs</span><span class="skill-pill" data-icon="↔" style="--icon:#a78bfa">Responsive Design</span></div></article>
-          <article class="skill-card glass reveal" style="transition-delay:.08s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg></div><h3>GIS</h3><div class="skill-list"><span class="skill-pill" data-icon="OL" style="--icon:#22c55e">OpenLayers</span><span class="skill-pill" data-icon="ol+" style="--icon:#14b8a6">ol-ext</span><span class="skill-pill" data-icon="GS" style="--icon:#84cc16">GeoServer</span><span class="skill-pill" data-icon="GN" style="--icon:#10b981">GeoNetwork</span><span class="skill-pill" data-icon="OGC" style="--icon:#38bdf8">OGC Standards</span><span class="skill-pill" data-icon="◇" style="--icon:#8b5cf6">Spatial Data</span><span class="skill-pill" data-icon="◎" style="--icon:#22d3ee">Web Mapping</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.08s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg></div><h3>GIS</h3><div class="skill-list"><span class="skill-pill" data-icon="OL" style="--icon:#22c55e">OpenLayers</span><span class="skill-pill" data-icon="ol+" style="--icon:#14b8a6">ol-ext</span><span class="skill-pill" data-icon="C" style="--icon:#38bdf8">Cesium</span><span class="skill-pill" data-icon="GS" style="--icon:#84cc16">GeoServer</span><span class="skill-pill" data-icon="GN" style="--icon:#10b981">GeoNetwork</span><span class="skill-pill" data-icon="OGC" style="--icon:#38bdf8">OGC Standards</span><span class="skill-pill" data-icon="◇" style="--icon:#8b5cf6">Spatial Data</span><span class="skill-pill" data-icon="◎" style="--icon:#22d3ee">Web Mapping</span></div></article>
           <article class="skill-card glass reveal" style="transition-delay:.16s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H4zM8 20h8M12 16v4" /><path d="M8 9h3m2 0h3m-8 3h8" /></svg></div><h3>UI / UX</h3><div class="skill-list"><span class="skill-pill" data-icon="F" style="--icon:#a78bfa">Figma</span><span class="skill-pill" data-icon="Xd" style="--icon:#f472b6">Adobe XD</span><span class="skill-pill" data-icon="DS" style="--icon:#22d3ee">Design Systems</span></div></article>
           <article class="skill-card glass reveal" style="transition-delay:.24s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M7 4v6m10-6v6M5 12h14v8H5z" /><path d="m9 16 2 2 4-4" /></svg></div><h3>Development</h3><div class="skill-list"><span class="skill-pill" data-icon="Git" style="--icon:#f97316">Git</span><span class="skill-pill" data-icon="GH" style="--icon:#e5e7eb">GitHub</span><span class="skill-pill" data-icon="GL" style="--icon:#fb923c">GitLab</span><span class="skill-pill" data-icon="D" style="--icon:#3b82f6">Docker</span><span class="skill-pill" data-icon="J" style="--icon:#60a5fa">Jira</span><span class="skill-pill" data-icon="↗" style="--icon:#10b981">Performance</span><span class="skill-pill" data-icon="⌘" style="--icon:#8b5cf6">Architecture</span></div></article>
         </div>
@@ -388,10 +417,10 @@
     /* Project data and lightweight SVG thumbnails */
     const projects = [
       { title: 'Geotajak', role: 'Developer', desc: 'An enterprise-grade open-source spatial information platform designed to manage, integrate, visualize, and share geographic information across organizations using standards-based GIS technologies.', tech: ['Angular','OpenLayers','GeoServer','REST API','OGC'], kind: 0 },
-      { title: 'Fleet Management System', role: 'Frontend Lead · Developer', desc: 'A real-time fleet monitoring platform built on Traccar for high-frequency live tracking, operational monitoring, route visualization, and large-scale location updates.', tech: ['Angular','OpenLayers','Traccar','RxJS','Docker'], kind: 1 },
+      { title: 'Fleet Management System', role: 'Frontend Lead · Developer', desc: 'A real-time fleet monitoring platform built on Traccar for high-frequency live tracking, operational monitoring, route visualization, and large-scale location updates.', tech: ['Angular','OpenLayers','RxJS'], kind: 1 },
       { title: 'Geoportal', role: 'Frontend Lead · Developer', desc: 'A citizen-oriented spatial portal for maps, layers, spatial analysis, and public geographic services, with administration tools for publishing and configuration.', tech: ['Angular','GeoServer','OpenLayers','OGC','Responsive Design'], kind: 2 },
       { title: 'Smart Drilling Management', role: 'Frontend Lead', desc: 'A GIS-powered platform that digitizes permit workflows, prevents underground utility conflicts, and improves cross-organization coordination through spatial analysis.', tech: ['Angular','GIS','OpenLayers','REST API'], kind: 3 },
-      { title: 'Geonet', role: 'Frontend Lead · Developer', desc: 'A centralized spatial data catalog for discovering, organizing, managing, and sharing geographic datasets through a unified enterprise reference platform.', tech: ['Angular','GeoNetwork','GeoServer','OGC'], kind: 4 },
+      { title: 'Geonet', role: 'Frontend Lead · Developer', desc: 'A centralized spatial data catalog for discovering, organizing, managing, and sharing geographic datasets through a unified enterprise reference platform.', tech: ['Angular','GeoServer','OGC'], kind: 4 },
       { title: 'Embedded Map', role: 'Developer', desc: 'A lightweight configurable mapping component that gives external systems advanced GIS layers, basemaps, tools, controls, and visualizations with minimal integration effort.', tech: ['Angular','OpenLayers','TypeScript'], kind: 5 }
     ];
 
