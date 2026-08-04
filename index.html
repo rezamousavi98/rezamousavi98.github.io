@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mohammad Reza — Senior Front-End and WebGIS Engineer building scalable, high-performance geospatial products." />
+  <meta name="theme-color" content="#070B14" />
+  <title>Mohammad Reza — Front-End &amp; WebGIS Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070b14;
+      --surface: #0f172a;
+      --cyan: #22d3ee;
+      --blue: #3b82f6;
+      --violet: #8b5cf6;
+      --green: #10b981;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: rgba(255, 255, 255, .08);
+      --nav-h: 76px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", Inter, sans-serif;
+      line-height: 1.6;
+    }
+    ::selection { color: #020617; background: var(--cyan); }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    button, a { font: inherit; }
+    .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Ambient layers */
+    .site-bg { position: fixed; inset: 0; z-index: -3; pointer-events: none; overflow: hidden; }
+    .grid-layer {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(34,211,238,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,.025) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 90%);
+    }
+    .noise { position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: .035; filter: contrast(160%); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E"); }
+    .blob { position: absolute; border-radius: 999px; filter: blur(100px); opacity: .13; animation: drift 14s ease-in-out infinite alternate; }
+    .blob.one { width: 460px; height: 460px; background: var(--blue); top: 4%; right: -130px; }
+    .blob.two { width: 380px; height: 380px; background: var(--violet); top: 40%; left: -210px; animation-delay: -5s; }
+    .blob.three { width: 320px; height: 320px; background: var(--cyan); bottom: -100px; right: 10%; animation-delay: -9s; }
+    #stars { position: absolute; inset: 0; }
+    .star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .35; animation: twinkle var(--d) ease-in-out infinite alternate; }
+    .cursor-glow { position: fixed; z-index: -1; width: 360px; height: 360px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(34,211,238,.075), transparent 65%); transform: translate(-50%, -50%); transition: opacity .3s; }
+    @keyframes drift { to { transform: translate3d(30px, 50px, 0) scale(1.12); } }
+    @keyframes twinkle { to { opacity: .8; transform: scale(1.8); } }
+
+    /* Global components */
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border: 1px solid rgba(34,211,238,.2); border-radius: 999px; background: rgba(34,211,238,.055); color: #a5f3fc; font-size: .76rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 50% { opacity: .55; box-shadow: 0 0 22px var(--green); } }
+    .gradient-text { color: transparent; background: linear-gradient(100deg, var(--cyan), #60a5fa 45%, #a78bfa 75%, var(--cyan)); background-size: 220% auto; background-clip: text; -webkit-background-clip: text; animation: gradient-shift 5s linear infinite; }
+    @keyframes gradient-shift { to { background-position: 220% center; } }
+    .section { position: relative; padding: 112px 0; }
+    .section-kicker { margin: 0 0 8px; color: var(--cyan); font-size: .76rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .section-title { margin: 0; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; letter-spacing: -.045em; }
+    .section-lead { max-width: 620px; margin: 18px 0 0; color: var(--muted); font-size: 1.04rem; }
+    .section-head { margin-bottom: 52px; }
+    .glass { border: 1px solid var(--border); background: linear-gradient(145deg, rgba(15,23,42,.8), rgba(8,15,29,.58)); box-shadow: 0 22px 70px rgba(0,0,0,.2); backdrop-filter: blur(16px); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.8,.2,1); }
+    .reveal.from-left { transform: translateX(-38px); }
+    .reveal.from-right { transform: translateX(38px); }
+    .reveal.visible { opacity: 1; transform: translate(0); }
+    .btn { position: relative; isolation: isolate; display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; overflow: hidden; padding: 0 20px; border: 1px solid var(--border); border-radius: 12px; color: var(--text); font-size: .88rem; font-weight: 600; transition: transform .25s, border-color .25s, box-shadow .25s, background .25s; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(34,211,238,.38); box-shadow: 0 10px 35px rgba(34,211,238,.12); }
+    .btn-primary { border-color: transparent; color: #031014; background: linear-gradient(110deg, var(--cyan), #60a5fa); box-shadow: 0 10px 30px rgba(34,211,238,.18); }
+    .btn-primary:hover { border-color: transparent; box-shadow: 0 13px 38px rgba(34,211,238,.26); }
+    .ripple { position: absolute; z-index: -1; border-radius: 50%; background: rgba(255,255,255,.45); transform: scale(0); animation: ripple .6s linear; pointer-events: none; }
+    @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+    /* Navigation */
+    .progress { position: fixed; z-index: 100; top: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--blue), var(--violet)); box-shadow: 0 0 12px var(--cyan); }
+    .nav-wrap { position: fixed; z-index: 40; top: 0; width: 100%; height: var(--nav-h); border-bottom: 1px solid transparent; transition: background .3s, border-color .3s; }
+    .nav-wrap.scrolled { border-color: var(--border); background: rgba(7,11,20,.72); backdrop-filter: blur(18px); }
+    nav { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .logo { position: relative; color: #fff; font-size: 1.18rem; font-weight: 700; letter-spacing: .18em; }
+    .logo::after { content: ""; position: absolute; right: -9px; bottom: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link { position: relative; padding: 9px 13px; color: var(--muted); font-size: .84rem; font-weight: 500; transition: color .2s; }
+    .nav-link::after { content: ""; position: absolute; left: 50%; bottom: 3px; width: 0; height: 1px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); transition: width .3s, left .3s; }
+    .nav-link:hover, .nav-link.active { color: #fff; }
+    .nav-link.active::after { left: 25%; width: 50%; }
+    .menu-button { display: none; width: 42px; height: 42px; place-items: center; border: 1px solid var(--border); border-radius: 10px; background: rgba(15,23,42,.6); color: #fff; }
+
+    /* Hero */
+    .hero { min-height: 100vh; padding: 138px 0 80px; display: grid; grid-template-columns: 1.06fr .94fr; align-items: center; gap: 54px; }
+    .hero h1 { max-width: 760px; margin: 22px 0 20px; font-size: clamp(3rem, 6.7vw, 6.1rem); line-height: .95; letter-spacing: -.065em; }
+    .hero h1 .intro { display: block; margin-bottom: 11px; color: var(--muted); font-size: .25em; font-weight: 500; letter-spacing: -.02em; }
+    .hero-subtitle { min-height: 60px; margin: 0 0 18px; color: #cbd5e1; font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 500; }
+    .typed { color: var(--cyan); }
+    .caret { display: inline-block; width: 2px; height: 1.15em; margin-left: 4px; vertical-align: -.17em; background: var(--cyan); animation: blink .8s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-copy { max-width: 640px; margin: 0; color: var(--muted); font-size: .98rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .socials { display: flex; align-items: center; gap: 9px; margin-top: 24px; }
+    .social { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); background: rgba(15,23,42,.38); transition: .25s; }
+    .social:hover { color: var(--cyan); border-color: rgba(34,211,238,.35); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(34,211,238,.12); }
+    .hero-art { position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center; }
+    .map-orbit { width: 100%; overflow: visible; filter: drop-shadow(0 20px 50px rgba(34,211,238,.08)); }
+    .map-orbit .ring { transform-origin: center; animation: rotate 24s linear infinite; }
+    .map-orbit .ring.reverse { animation-direction: reverse; animation-duration: 32s; }
+    .map-orbit .route { stroke-dasharray: 9 12; animation: dash 10s linear infinite; }
+    .map-orbit .node { transform-origin: center; animation: nodePulse 2.5s ease-in-out infinite alternate; }
+    .map-orbit .satellite { transform-origin: 300px 300px; animation: rotate 15s linear infinite; }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    @keyframes dash { to { stroke-dashoffset: -210; } }
+    @keyframes nodePulse { to { opacity: .55; transform: scale(1.7); } }
+    .coordinate { position: absolute; padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px; background: rgba(7,11,20,.75); color: #67e8f9; font: 500 .65rem/1 "Space Grotesk"; letter-spacing: .09em; backdrop-filter: blur(8px); animation: float 5s ease-in-out infinite; }
+    .coordinate.c1 { top: 15%; right: 2%; }
+    .coordinate.c2 { bottom: 15%; left: 2%; animation-delay: -2.5s; }
+    @keyframes float { 50% { transform: translateY(-9px); } }
+    .scroll-cue { position: absolute; bottom: 30px; left: 50%; display: flex; align-items: center; gap: 10px; color: #64748b; font-size: .66rem; letter-spacing: .17em; text-transform: uppercase; transform: translateX(-50%) rotate(90deg); transform-origin: center; }
+    .scroll-cue i { display: block; width: 34px; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 72px; align-items: start; }
+    .about-index { color: rgba(34,211,238,.16); font-size: clamp(6rem, 15vw, 12rem); font-weight: 700; line-height: .8; letter-spacing: -.08em; }
+    .about-copy { position: relative; }
+    .about-copy::before { content: ""; position: absolute; top: 5px; left: -28px; width: 2px; height: 78px; background: linear-gradient(var(--cyan), transparent); box-shadow: 0 0 12px var(--cyan); }
+    .about-copy p { margin: 0 0 18px; color: var(--muted); font-size: 1.02rem; }
+    .about-copy p:first-of-type { color: #dbeafe; font-size: 1.22rem; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
+    .metric { padding: 22px 18px; border-radius: 14px; }
+    .metric strong { display: block; color: #fff; font-size: 2rem; line-height: 1.1; }
+    .metric span { color: var(--muted); font-size: .76rem; }
+
+    /* Experience */
+    .timeline { position: relative; max-width: 920px; margin-inline: auto; }
+    .timeline::before { content: ""; position: absolute; top: 0; bottom: 0; left: 20px; width: 1px; background: linear-gradient(var(--cyan), rgba(59,130,246,.35), transparent); box-shadow: 0 0 12px rgba(34,211,238,.3); }
+    .timeline-item { position: relative; padding-left: 68px; }
+    .timeline-node { position: absolute; z-index: 1; top: 35px; left: 13px; width: 15px; height: 15px; border: 3px solid var(--bg); border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 5px rgba(34,211,238,.09), 0 0 20px var(--cyan); }
+    .experience-card { padding: clamp(25px, 5vw, 44px); border-radius: 22px; }
+    .experience-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 26px; border-bottom: 1px solid var(--border); }
+    .experience-top h3 { margin: 5px 0 3px; font-size: 1.7rem; letter-spacing: -.03em; }
+    .role { color: var(--cyan); font-size: .85rem; font-weight: 600; }
+    .meta { text-align: right; color: var(--muted); font-size: .78rem; }
+    .company-desc { margin: 25px 0 22px; color: #cbd5e1; }
+    .responsibilities { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+    .responsibilities li { position: relative; padding-left: 22px; color: var(--muted); font-size: .91rem; }
+    .responsibilities li::before { content: ""; position: absolute; top: .68em; left: 0; width: 7px; height: 7px; border: 1px solid var(--cyan); transform: rotate(45deg); }
+
+    /* Projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .project-card { position: relative; overflow: hidden; border-radius: 20px; transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s; }
+    .project-card::after { content: ""; position: absolute; inset: -1px; z-index: -1; opacity: 0; border-radius: inherit; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(34,211,238,.18), transparent 40%); transition: opacity .3s; }
+    .project-card:hover { transform: translateY(-7px); border-color: rgba(34,211,238,.22); box-shadow: 0 28px 70px rgba(0,0,0,.34), 0 0 35px rgba(34,211,238,.06); }
+    .project-card:hover::after { opacity: 1; }
+    .project-visual { position: relative; height: 205px; overflow: hidden; border-bottom: 1px solid var(--border); background: radial-gradient(circle at 70% 20%, rgba(59,130,246,.13), transparent 42%), #09111f; }
+    .project-visual svg { width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+    .project-card:hover .project-visual svg { transform: scale(1.04); }
+    .project-number { position: absolute; top: 16px; right: 18px; color: rgba(255,255,255,.18); font-size: .68rem; letter-spacing: .15em; }
+    .project-content { padding: 25px; }
+    .project-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+    .project-heading h3 { margin: 0; color: #fff; font-size: 1.3rem; letter-spacing: -.025em; }
+    .role-badge { flex: none; padding: 5px 8px; border: 1px solid rgba(139,92,246,.2); border-radius: 7px; background: rgba(139,92,246,.07); color: #c4b5fd; font-size: .61rem; font-weight: 600; }
+    .project-content p { min-height: 106px; margin: 15px 0 18px; color: var(--muted); font-size: .86rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { padding: 5px 9px; border: 1px solid var(--border); border-radius: 999px; color: #b6c3d4; background: rgba(255,255,255,.025); font-size: .65rem; }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 23px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .project-link { display: inline-flex; align-items: center; gap: 7px; color: var(--cyan); font-size: .76rem; font-weight: 600; }
+    .project-link svg { transition: transform .25s; }
+    .project-link:hover svg { transform: translateX(4px); }
+    .github-muted { color: #64748b; transition: color .2s; }
+    .github-muted:hover { color: #cbd5e1; }
+
+    /* Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .skill-card { padding: 26px 22px; border-radius: 18px; transition: transform .3s, border-color .3s; }
+    .skill-card:hover { transform: translateY(-4px); border-color: rgba(34,211,238,.2); }
+    .skill-icon { display: grid; width: 42px; height: 42px; margin-bottom: 21px; place-items: center; border: 1px solid rgba(34,211,238,.15); border-radius: 12px; color: var(--cyan); background: rgba(34,211,238,.055); }
+    .skill-card h3 { margin: 0 0 20px; font-size: 1rem; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-pill { padding: 6px 9px; border: 1px solid var(--border); border-radius: 7px; color: var(--muted); background: rgba(255,255,255,.018); font-size: .7rem; transition: color .2s, border-color .2s; }
+    .skill-pill:hover { color: #fff; border-color: rgba(34,211,238,.25); }
+    .skill-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+    .skill-bar { padding: 19px 20px; border-radius: 14px; }
+    .bar-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: .76rem; }
+    .bar-meta span:last-child { color: var(--cyan); }
+    .bar-track { height: 3px; overflow: hidden; border-radius: 3px; background: rgba(255,255,255,.06); }
+    .bar-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--cyan), var(--blue)); box-shadow: 0 0 12px var(--cyan); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+
+    /* Contact */
+    .contact-shell { position: relative; overflow: hidden; padding: clamp(32px, 6vw, 70px); border-radius: 28px; text-align: center; }
+    .contact-shell::before { content: ""; position: absolute; width: 400px; height: 400px; top: -250px; left: 50%; border-radius: 50%; background: rgba(34,211,238,.16); filter: blur(90px); transform: translateX(-50%); }
+    .contact-shell .section-lead { margin-inline: auto; }
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 42px; text-align: left; }
+    .contact-card { position: relative; display: flex; min-width: 0; align-items: center; gap: 13px; padding: 18px; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: rgba(7,11,20,.5); transition: transform .3s, border-color .3s, box-shadow .3s; cursor: pointer; }
+    .contact-card::before { content: ""; position: absolute; inset: 0; opacity: 0; border-radius: inherit; background: linear-gradient(100deg, transparent, rgba(34,211,238,.07), transparent); transform: translateX(-100%); transition: opacity .3s; }
+    .contact-card:hover { transform: translateY(-4px); border-color: rgba(34,211,238,.3); box-shadow: 0 15px 35px rgba(34,211,238,.08); }
+    .contact-card:hover::before { opacity: 1; animation: sheen 1.2s; }
+    @keyframes sheen { to { transform: translateX(100%); } }
+    .contact-icon { position: relative; display: grid; flex: none; width: 39px; height: 39px; place-items: center; border-radius: 10px; color: var(--cyan); background: rgba(34,211,238,.07); box-shadow: inset 0 0 0 1px rgba(34,211,238,.12); }
+    .contact-info { min-width: 0; }
+    .contact-info span { display: block; color: #64748b; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; }
+    .contact-info strong { display: block; overflow: hidden; color: #dbeafe; font-size: .75rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+    .copy-mark { margin-left: auto; color: #475569; }
+    .toast { position: fixed; z-index: 80; right: 22px; bottom: 22px; padding: 12px 16px; border: 1px solid rgba(16,185,129,.25); border-radius: 10px; background: rgba(6,20,20,.9); color: #a7f3d0; font-size: .78rem; opacity: 0; transform: translateY(20px); transition: .3s; pointer-events: none; backdrop-filter: blur(12px); }
+    .toast.show { opacity: 1; transform: none; }
+
+    footer { padding: 28px 0 38px; border-top: 1px solid var(--border); color: #64748b; font-size: .74rem; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .back-top { position: fixed; z-index: 30; right: 22px; bottom: 22px; display: grid; width: 43px; height: 43px; place-items: center; border: 1px solid rgba(34,211,238,.25); border-radius: 12px; color: var(--cyan); background: rgba(7,11,20,.75); opacity: 0; transform: translateY(16px); transition: .3s; pointer-events: none; backdrop-filter: blur(12px); }
+    .back-top.visible { opacity: 1; transform: none; pointer-events: auto; }
+    .back-top:hover { box-shadow: 0 0 25px rgba(34,211,238,.15); }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding-top: 130px; }
+      .hero-art { width: min(560px, 100%); margin-inline: auto; }
+      .scroll-cue { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-index { display: none; }
+      .about-copy::before { display: none; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      :root { --nav-h: 68px; }
+      .container { width: min(100% - 30px, 1180px); }
+      .section { padding: 84px 0; }
+      .menu-button { display: grid; }
+      .nav-links { position: fixed; top: 67px; left: 15px; right: 15px; display: grid; gap: 3px; padding: 12px; border: 1px solid var(--border); border-radius: 15px; background: rgba(7,11,20,.95); opacity: 0; transform: translateY(-10px) scale(.98); transition: .25s; pointer-events: none; backdrop-filter: blur(18px); }
+      .nav-links.open { opacity: 1; transform: none; pointer-events: auto; }
+      .nav-link { padding: 12px; }
+      .nav-link::after { display: none; }
+      .nav-link.active { color: var(--cyan); background: rgba(34,211,238,.055); border-radius: 8px; }
+      .hero { min-height: auto; padding-top: 112px; gap: 22px; }
+      .hero h1 { font-size: clamp(3.1rem, 17vw, 5rem); }
+      .hero-art { width: min(430px, 100%); }
+      .metrics, .projects-grid, .skill-bars { grid-template-columns: 1fr; }
+      .projects-grid { gap: 16px; }
+      .project-content p { min-height: 0; }
+      .experience-top { flex-direction: column; }
+      .meta { text-align: left; }
+      .timeline-item { padding-left: 41px; }
+      .timeline::before { left: 8px; }
+      .timeline-node { left: 1px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 500px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+      .project-heading { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="site-bg" aria-hidden="true"><div class="grid-layer"></div><div id="stars"></div><div class="blob one"></div><div class="blob two"></div><div class="blob three"></div></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="nav-wrap" id="navbar">
+    <nav class="container" aria-label="Main navigation">
+      <a class="logo" href="#home" aria-label="MMRZ home">MMRZ</a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link active" href="#home">Home</a>
+        <a class="nav-link" href="#experience">Experience</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+      <button class="menu-button" id="menuButton" aria-label="Toggle navigation" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div class="reveal visible">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> Frontend Engineer • WebGIS</span>
+        <h1><span class="intro">Hi, I'm</span>Mohammad<br /><span class="gradient-text">Reza.</span></h1>
+        <p class="hero-subtitle">I build <span class="typed" id="typed"></span><span class="caret"></span></p>
+        <p class="hero-copy">I'm a Front-End Engineer specialized in building high-performance WebGIS platforms, interactive mapping applications, reusable UI architectures, and large-scale enterprise spatial systems. I turn complex geospatial workflows into intuitive, maintainable experiences.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary ripple-button" id="resumeButton">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" /></svg>
+            Download Resume
+          </button>
+          <a class="btn ripple-button" href="#contact">Contact Me <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6" /></svg></a>
+        </div>
+        <div class="socials" aria-label="Social profiles">
+          <a class="social" href="https://github.com/rezamousavi98" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg>
+          </a>
+          <a class="social" href="http://linkedin.com/in/mohammadreza-mousavi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5.2 7.3H1.6V22h3.6V7.3ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 13.6c0-4.4-2.3-6.5-5.4-6.5-2.5 0-3.6 1.4-4.2 2.3V7.3H9.2V22h3.6v-7.3c0-1.9.4-3.8 2.8-3.8 2.4 0 2.4 2.2 2.4 3.9V22h3.6l.8-8.4Z" /></svg>
+          </a>
+          <a class="social" href="mailto:rezamousavi354@gmail.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-art reveal from-right visible" id="heroArt" aria-label="Abstract WebGIS network illustration">
+        <svg class="map-orbit" viewBox="0 0 600 600" role="img" aria-labelledby="mapTitle">
+          <title id="mapTitle">Animated geographic layers, coordinate grids and connected map nodes</title>
+          <defs>
+            <radialGradient id="core" cx="50%" cy="44%"><stop offset="0" stop-color="#17335e" /><stop offset="1" stop-color="#09111f" /></radialGradient>
+            <linearGradient id="line" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22d3ee" /><stop offset=".5" stop-color="#3b82f6" /><stop offset="1" stop-color="#8b5cf6" /></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="4" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+            <clipPath id="globe"><circle cx="300" cy="300" r="190" /></clipPath>
+            <pattern id="smallGrid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0v30" fill="none" stroke="#22d3ee" stroke-opacity=".08" /></pattern>
+          </defs>
+          <circle cx="300" cy="300" r="268" fill="none" stroke="#22d3ee" stroke-opacity=".1" stroke-dasharray="2 12" class="ring" />
+          <circle cx="300" cy="300" r="233" fill="none" stroke="#8b5cf6" stroke-opacity=".13" stroke-dasharray="18 24" class="ring reverse" />
+          <g class="satellite"><circle cx="300" cy="32" r="4" fill="#22d3ee" filter="url(#glow)" /><path d="M287 25h8v14h-8m26-14h-8v14h8M295 29h10v6h-10" fill="none" stroke="#67e8f9" stroke-width="2" /></g>
+          <circle cx="300" cy="300" r="194" fill="#22d3ee" fill-opacity=".035" stroke="url(#line)" stroke-opacity=".46" />
+          <g clip-path="url(#globe)">
+            <rect x="104" y="104" width="392" height="392" fill="url(#core)" />
+            <rect x="104" y="104" width="392" height="392" fill="url(#smallGrid)" />
+            <g fill="none" stroke="#38bdf8" stroke-opacity=".13">
+              <ellipse cx="300" cy="300" rx="190" ry="68" /><ellipse cx="300" cy="300" rx="190" ry="128" />
+              <ellipse cx="300" cy="300" rx="78" ry="190" /><ellipse cx="300" cy="300" rx="140" ry="190" />
+            </g>
+            <path d="M165 245 198 206l41 3 25-32 43 14 21-21 51 24 18 34 42 14 22 59-41 28-27 57-54-13-26 37-59-18-28-42-58-18-21-45Z" fill="#0e7490" fill-opacity=".15" stroke="url(#line)" stroke-width="2" />
+            <path class="route" d="M164 340C216 275 245 360 298 281s101-18 142-66" fill="none" stroke="#67e8f9" stroke-width="2" filter="url(#glow)" />
+            <path class="route" d="M180 222c63 24 84 6 115 67s95 77 130 51" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-dashoffset="40" />
+            <g fill="#22d3ee" filter="url(#glow)"><circle cx="164" cy="340" r="5" /><circle cx="298" cy="281" r="6" /><circle cx="440" cy="215" r="5" /><circle cx="218" cy="236" r="4" /><circle cx="388" cy="342" r="4" /></g>
+          </g>
+          <g class="node"><circle cx="490" cy="174" r="5" fill="#8b5cf6" filter="url(#glow)" /></g>
+          <g class="node" style="animation-delay:-1.2s"><circle cx="108" cy="405" r="5" fill="#22d3ee" filter="url(#glow)" /></g>
+          <path d="M455 211 490 174M146 390l-38 15" stroke="#64748b" stroke-dasharray="3 5" />
+        </svg>
+        <span class="coordinate c1">32.4279° N · 53.6880° E</span>
+        <span class="coordinate c2">LAYER_07 · ACTIVE</span>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">Scroll <i></i></div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-index reveal from-left" aria-hidden="true">05+</div>
+        <div class="about-copy reveal from-right">
+          <p class="section-kicker">Beyond the interface</p>
+          <h2 class="section-title">About Me</h2>
+          <div style="margin-top: 30px">
+            <p>I'm a Front-End Engineer with over five years of professional experience developing enterprise WebGIS applications and spatial information systems.</p>
+            <p>Throughout my career, I've worked on large-scale GIS platforms used for fleet management, geoportals, spatial data infrastructures, drilling operation management, and configurable mapping solutions.</p>
+            <p>My expertise lies in designing scalable Angular applications, building reusable UI architectures, optimizing rendering performance for data-intensive mapping interfaces, and creating intuitive user experiences for complex geospatial workflows.</p>
+            <p>I enjoy solving performance challenges, transforming GIS requirements into elegant interfaces, and building software that remains maintainable as projects grow.</p>
+          </div>
+          <div class="metrics">
+            <div class="metric glass"><strong><span class="counter" data-target="5">0</span>+</strong><span>Years of experience</span></div>
+            <div class="metric glass"><strong><span class="counter" data-target="6">0</span></strong><span>Enterprise platforms</span></div>
+            <div class="metric glass"><strong><span class="counter" data-target="100">0</span>%</strong><span>Geospatial focus</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Where I've made an impact</p>
+          <h2 class="section-title">Experience</h2>
+          <p class="section-lead">Engineering reliable spatial products at the intersection of frontend architecture, mapping, and real-time data.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <span class="timeline-node" aria-hidden="true"></span>
+            <div class="experience-card glass">
+              <div class="experience-top">
+                <div><span class="role">Front-End Developer · Frontend Lead</span><h3>Saafaa</h3></div>
+                <div class="meta">July 2021 — Present<br />Yazd, Iran</div>
+              </div>
+              <p class="company-desc">Knowledge-based software company specializing in enterprise WebGIS solutions and spatial information systems.</p>
+              <ul class="responsibilities">
+                <li>Developed and maintained enterprise-scale Angular WebGIS applications.</li>
+                <li>Led frontend development for multiple GIS products and coordinated reusable architecture across projects.</li>
+                <li>Designed modular component libraries and shared submodules to improve scalability and maintainability.</li>
+                <li>Optimized rendering performance for large geospatial datasets and real-time mapping applications.</li>
+                <li>Diagnosed and resolved memory leaks and performance bottlenecks in long-running fleet tracking systems.</li>
+                <li>Built responsive interfaces integrated with GeoServer, OpenLayers, REST APIs, and OGC standards.</li>
+                <li>Collaborated with backend and GIS teams to deliver production-ready enterprise mapping solutions.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Selected systems</p>
+          <h2 class="section-title">Projects that move<br /><span class="gradient-text">spatial ideas forward.</span></h2>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">The technical toolkit</p>
+          <h2 class="section-title">Skills & Expertise</h2>
+          <p class="section-lead">A practical stack shaped by years of building data-heavy, map-centric enterprise software.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card glass reveal"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" /><path d="m8 15 4-8 4 8m-6.6-3h5.2" /></svg></div><h3>Frontend</h3><div class="skill-list"><span class="skill-pill">Angular</span><span class="skill-pill">TypeScript</span><span class="skill-pill">JavaScript</span><span class="skill-pill">HTML5</span><span class="skill-pill">CSS3</span><span class="skill-pill">SCSS</span><span class="skill-pill">TailwindCSS</span><span class="skill-pill">RxJS</span><span class="skill-pill">React</span><span class="skill-pill">REST APIs</span><span class="skill-pill">Responsive Design</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.08s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg></div><h3>GIS</h3><div class="skill-list"><span class="skill-pill">OpenLayers</span><span class="skill-pill">ol-ext</span><span class="skill-pill">GeoServer</span><span class="skill-pill">GeoNetwork</span><span class="skill-pill">OGC Standards</span><span class="skill-pill">Spatial Data</span><span class="skill-pill">Web Mapping</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.16s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H4zM8 20h8M12 16v4" /><path d="M8 9h3m2 0h3m-8 3h8" /></svg></div><h3>UI / UX</h3><div class="skill-list"><span class="skill-pill">Figma</span><span class="skill-pill">Adobe XD</span><span class="skill-pill">PrimeNG</span><span class="skill-pill">Ng-Zorro</span><span class="skill-pill">Angular Material</span><span class="skill-pill">Shadcn UI</span><span class="skill-pill">Design Systems</span></div></article>
+          <article class="skill-card glass reveal" style="transition-delay:.24s"><div class="skill-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M7 4v6m10-6v6M5 12h14v8H5z" /><path d="m9 16 2 2 4-4" /></svg></div><h3>Development</h3><div class="skill-list"><span class="skill-pill">Git</span><span class="skill-pill">GitHub</span><span class="skill-pill">GitLab</span><span class="skill-pill">Docker</span><span class="skill-pill">Jira</span><span class="skill-pill">Performance</span><span class="skill-pill">Architecture</span></div></article>
+        </div>
+        <div class="skill-bars reveal">
+          <div class="skill-bar glass"><div class="bar-meta"><span>Frontend Architecture</span><span>95%</span></div><div class="bar-track"><div class="bar-fill" data-width="95%"></div></div></div>
+          <div class="skill-bar glass"><div class="bar-meta"><span>WebGIS Engineering</span><span>92%</span></div><div class="bar-track"><div class="bar-fill" data-width="92%"></div></div></div>
+          <div class="skill-bar glass"><div class="bar-meta"><span>Performance Optimization</span><span>90%</span></div><div class="bar-track"><div class="bar-fill" data-width="90%"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-shell glass reveal">
+          <p class="section-kicker">Start a conversation</p>
+          <h2 class="section-title">Let's Build Something <span class="gradient-text">Together.</span></h2>
+          <p class="section-lead">I'm always interested in discussing WebGIS, frontend engineering, performance optimization, and exciting software projects.</p>
+          <div class="contact-grid">
+            <button class="contact-card copy-contact" data-copy="rezamousavi354@gmail.com" aria-label="Copy email address"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg></span><span class="contact-info"><span>Email</span><strong>rezamousavi354@gmail.com</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
+            <button class="contact-card copy-contact" data-copy="linkedin.com/in/mohammadreza-mousavi" aria-label="Copy LinkedIn profile"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5.2 7.3H1.6V22h3.6V7.3ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 13.6c0-4.4-2.3-6.5-5.4-6.5-2.5 0-3.6 1.4-4.2 2.3V7.3H9.2V22h3.6v-7.3c0-1.9.4-3.8 2.8-3.8 2.4 0 2.4 2.2 2.4 3.9V22h3.6l.8-8.4Z" /></svg></span><span class="contact-info"><span>LinkedIn</span><strong>mohammadreza-mousavi</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
+            <button class="contact-card copy-contact" data-copy="github.com/rezamousavi98" aria-label="Copy GitHub profile"><span class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg></span><span class="contact-info"><span>GitHub</span><strong>rezamousavi98</strong></span><svg class="copy-mark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><span>© 2026 Mohammad. All rights reserved.</span><span>Built with HTML, Tailwind CSS and JavaScript.</span></div></footer>
+  <button class="back-top" id="backTop" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 15 6-6 6 6" /></svg></button>
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+
+  <script>
+    /* Project data and lightweight SVG thumbnails */
+    const projects = [
+      { title: 'Geotajak', role: 'Developer', desc: 'An enterprise-grade open-source spatial information platform designed to manage, integrate, visualize, and share geographic information across organizations using standards-based GIS technologies.', tech: ['Angular','OpenLayers','GeoServer','REST API','OGC'], kind: 0 },
+      { title: 'Fleet Management System', role: 'Frontend Lead · Developer', desc: 'A real-time fleet monitoring platform built on Traccar for high-frequency live tracking, operational monitoring, route visualization, and large-scale location updates.', tech: ['Angular','OpenLayers','Traccar','RxJS','Docker'], kind: 1 },
+      { title: 'Geoportal', role: 'Frontend Lead · Developer', desc: 'A citizen-oriented spatial portal for maps, layers, spatial analysis, and public geographic services, with administration tools for publishing and configuration.', tech: ['Angular','GeoServer','OpenLayers','OGC','Responsive Design'], kind: 2 },
+      { title: 'Smart Drilling Management', role: 'Frontend Lead', desc: 'A GIS-powered platform that digitizes permit workflows, prevents underground utility conflicts, and improves cross-organization coordination through spatial analysis.', tech: ['Angular','GIS','OpenLayers','REST API'], kind: 3 },
+      { title: 'Geonet', role: 'Frontend Lead · Developer', desc: 'A centralized spatial data catalog for discovering, organizing, managing, and sharing geographic datasets through a unified enterprise reference platform.', tech: ['Angular','GeoNetwork','GeoServer','OGC'], kind: 4 },
+      { title: 'Embedded Map', role: 'Developer', desc: 'A lightweight configurable mapping component that gives external systems advanced GIS layers, basemaps, tools, controls, and visualizations with minimal integration effort.', tech: ['Angular','OpenLayers','TypeScript'], kind: 5 }
+    ];
+
+    const visual = (kind) => {
+      const base = `<svg viewBox="0 0 520 220" aria-hidden="true"><defs><pattern id="g${kind}" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0v24" fill="none" stroke="#22d3ee" stroke-opacity=".07"/></pattern><linearGradient id="l${kind}"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient><filter id="f${kind}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="520" height="220" fill="url(#g${kind})"/>`;
+      const art = [
+        `<path d="M54 155 102 75l77 32 61-61 86 44 63-20 72 78-82 33-85-29-82 28-73-37Z" fill="#0891b2" fill-opacity=".08" stroke="url(#l0)"/><path d="m94 145 87-49 77 36 86-52 89 52" fill="none" stroke="#67e8f9" stroke-dasharray="5 8"/><g fill="#22d3ee" filter="url(#f0)"><circle cx="94" cy="145" r="4"/><circle cx="181" cy="96" r="4"/><circle cx="258" cy="132" r="4"/><circle cx="344" cy="80" r="4"/><circle cx="433" cy="132" r="4"/></g>`,
+        `<path d="M42 165C135 58 184 189 280 91s143 21 200-31" fill="none" stroke="url(#l1)" stroke-width="3"/><path d="M42 165C135 58 184 189 280 91s143 21 200-31" fill="none" stroke="#67e8f9" stroke-dasharray="4 10"/><g transform="translate(253 69)" fill="#0f172a" stroke="#22d3ee"><path d="M0 13 8 0h29l10 13v17H0Z"/><circle cx="12" cy="30" r="7"/><circle cx="36" cy="30" r="7"/></g><circle cx="400" cy="119" r="7" fill="#22d3ee" filter="url(#f1)"/>`,
+        `<g transform="translate(85 38)"><rect width="350" height="145" rx="8" fill="#0b1526" stroke="#334155"/><path d="M18 112 74 52l63 24 51-40 58 57 50-30 35 48" fill="none" stroke="url(#l2)" stroke-width="2"/><path d="M18 126h313M18 18v108" stroke="#475569"/><g fill="#22d3ee"><circle cx="74" cy="52" r="4"/><circle cx="188" cy="36" r="4"/><circle cx="296" cy="63" r="4"/></g></g>`,
+        `<g fill="none"><circle cx="260" cy="110" r="72" stroke="#22d3ee" stroke-opacity=".2"/><circle cx="260" cy="110" r="45" stroke="#8b5cf6" stroke-opacity=".3"/><path d="M77 164 160 106l73 24 87-65 126 72" stroke="url(#l3)" stroke-width="3"/><path d="M260 35v150M185 110h150" stroke="#22d3ee" stroke-dasharray="3 8"/></g><path d="m260 76 15 27-15 32-15-32Z" fill="#22d3ee" fill-opacity=".25" stroke="#67e8f9" filter="url(#f3)"/>`,
+        `<g transform="translate(105 25)" fill="#0c1728" stroke="#334155"><rect x="0" y="0" width="310" height="42" rx="6"/><rect x="24" y="62" width="262" height="42" rx="6"/><rect x="52" y="124" width="206" height="42" rx="6"/></g><path d="M143 46h118m-94 62h153m-125 62h98" stroke="url(#l4)" stroke-width="3"/><circle cx="385" cy="46" r="6" fill="#22d3ee" filter="url(#f4)"/>`,
+        `<g transform="translate(92 30)"><rect width="336" height="160" rx="10" fill="#0b1526" stroke="#334155"/><rect x="14" y="14" width="308" height="132" rx="4" fill="url(#g5)"/><path d="m35 122 62-66 53 32 43-47 46 60 64-53" fill="none" stroke="url(#l5)" stroke-width="2"/><g fill="#22d3ee"><circle cx="97" cy="56" r="4"/><circle cx="193" cy="41" r="4"/><circle cx="303" cy="48" r="4"/></g><path d="M275 111h28m-14-14v28" stroke="#8b5cf6" stroke-width="2"/></g>`
+      ][kind];
+      return base + art + '</svg>';
+    };
+
+    document.getElementById('projectsGrid').innerHTML = projects.map((p, i) => `
+      <article class="project-card glass reveal" style="transition-delay:${(i % 2) * .08}s">
+        <div class="project-visual">${visual(p.kind)}<span class="project-number">0${i + 1} / 06</span></div>
+        <div class="project-content">
+          <div class="project-heading"><h3>${p.title}</h3><span class="role-badge">${p.role}</span></div>
+          <p>${p.desc}</p>
+          <div class="chips">${p.tech.map(t => `<span class="chip">${t}</span>`).join('')}</div>
+          <div class="project-footer"><a class="github-muted" href="https://github.com/rezamousavi98" target="_blank" rel="noreferrer" aria-label="GitHub placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.2-1.5 3.16-1.18 3.16-1.18.62 1.58.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.4-2.73 5.39-5.32 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg></a><a class="project-link" href="#contact">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+        </div>
+      </article>`).join('');
+
+    /* Scroll-based UI */
+    const nav = document.getElementById('navbar');
+    const progress = document.getElementById('progress');
+    const backTop = document.getElementById('backTop');
+    const navLinks = [...document.querySelectorAll('.nav-link')];
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const updateScroll = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      progress.style.width = `${max ? y / max * 100 : 0}%`;
+      nav.classList.toggle('scrolled', y > 20);
+      backTop.classList.toggle('visible', y > 650);
+      let current = 'home';
+      sections.forEach(section => { if (y >= section.offsetTop - 180) current = section.id; });
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}` || (current === 'about' && link.getAttribute('href') === '#home')));
+    };
+    addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+    backTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* Reveals, counters and bars */
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('.bar-fill').forEach(bar => bar.style.width = bar.dataset.width);
+      entry.target.querySelectorAll('.counter').forEach(counter => {
+        const target = +counter.dataset.target;
+        const start = performance.now();
+        const tick = now => { const p = Math.min((now - start) / 1100, 1); counter.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+      revealObserver.unobserve(entry.target);
+    }), { threshold: .13 });
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+
+    /* Mobile navigation */
+    const menuButton = document.getElementById('menuButton');
+    const navLinksBox = document.getElementById('navLinks');
+    menuButton.addEventListener('click', () => { const open = navLinksBox.classList.toggle('open'); menuButton.setAttribute('aria-expanded', open); });
+    navLinks.forEach(link => link.addEventListener('click', () => { navLinksBox.classList.remove('open'); menuButton.setAttribute('aria-expanded', 'false'); }));
+
+    /* Hero typing */
+    const words = ['scalable WebGIS applications.', 'modern Frontend systems.', 'high-performance map experiences.'];
+    const typed = document.getElementById('typed');
+    let wordIndex = 0, charIndex = 0, deleting = false;
+    function typeLoop() {
+      const word = words[wordIndex];
+      charIndex += deleting ? -1 : 1;
+      typed.textContent = word.slice(0, charIndex);
+      let delay = deleting ? 34 : 54;
+      if (!deleting && charIndex === word.length) { deleting = true; delay = 1500; }
+      else if (deleting && charIndex === 0) { deleting = false; wordIndex = (wordIndex + 1) % words.length; delay = 280; }
+      setTimeout(typeLoop, delay);
+    }
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) typeLoop(); else typed.textContent = words[0];
+
+    /* Pointer glow, parallax and project lighting */
+    const cursorGlow = document.getElementById('cursorGlow');
+    const heroArt = document.getElementById('heroArt');
+    addEventListener('pointermove', e => {
+      cursorGlow.style.left = `${e.clientX}px`; cursorGlow.style.top = `${e.clientY}px`;
+      if (innerWidth > 960) heroArt.style.transform = `translate(${(e.clientX / innerWidth - .5) * 10}px, ${(e.clientY / innerHeight - .5) * 10}px)`;
+    }, { passive: true });
+    document.querySelectorAll('.project-card').forEach(card => card.addEventListener('pointermove', e => { const r = card.getBoundingClientRect(); card.style.setProperty('--mx', `${e.clientX-r.left}px`); card.style.setProperty('--my', `${e.clientY-r.top}px`); }));
+
+    /* Stars */
+    const stars = document.getElementById('stars');
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < 55; i++) { const s = document.createElement('i'); s.className = 'star'; s.style.left = `${Math.random()*100}%`; s.style.top = `${Math.random()*100}%`; s.style.setProperty('--d', `${2 + Math.random()*5}s`); fragment.appendChild(s); }
+    stars.appendChild(fragment);
+
+    /* Ripple feedback */
+    document.querySelectorAll('.ripple-button').forEach(button => button.addEventListener('click', e => { const r = button.getBoundingClientRect(); const size = Math.max(r.width, r.height); const wave = document.createElement('span'); wave.className = 'ripple'; wave.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px`; button.appendChild(wave); setTimeout(() => wave.remove(), 650); }));
+
+    /* Contact copy interactions */
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    const showToast = text => { toast.textContent = text; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 1900); };
+    document.querySelectorAll('.copy-contact').forEach(card => card.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(card.dataset.copy); showToast('Copied to clipboard'); }
+      catch { showToast(card.dataset.copy); }
+    }));
+
+    /* Single-file text résumé download */
+    document.getElementById('resumeButton').addEventListener('click', () => {
+      const resume = `MOHAMMAD REZA MOUSAVI\nFront-End / WebGIS Engineer\n\nEmail: rezamousavi354@gmail.com\nLinkedIn: linkedin.com/in/mohammadreza-mousavi\nGitHub: github.com/rezamousavi98\n\nPROFILE\nFront-End Engineer with 5+ years of experience building scalable Angular and WebGIS platforms, interactive mapping applications, reusable UI architectures, and enterprise spatial systems.\n\nEXPERIENCE\nSaafaa — Front-End Developer / Frontend Lead\nJuly 2021 — Present · Yazd, Iran\n\nCORE SKILLS\nAngular, TypeScript, JavaScript, RxJS, OpenLayers, GeoServer, GeoNetwork, OGC Standards, REST APIs, UI Architecture, Performance Optimization, Docker, Git.`;
+      const url = URL.createObjectURL(new Blob([resume], { type: 'text/plain' }));
+      const a = document.createElement('a'); a.href = url; a.download = 'Mohammad-Reza-Mousavi-Resume.txt'; a.click(); URL.revokeObjectURL(url);
+      showToast('Resume download started');
+    });
+  </script>
+</body>
+</html>
