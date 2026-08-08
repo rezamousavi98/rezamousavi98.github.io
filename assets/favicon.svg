@@ -1,13 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    :root {
+      --favicon-bg-top: #291316;
+      --favicon-bg: #13090b;
+      --favicon-primary: #ff5c72;
+      --favicon-secondary: #ff8b6a;
+      --favicon-tertiary: #e89ab2;
+      --favicon-muted: #bca5a7;
+    }
+  </style>
   <defs>
     <linearGradient id="bg" x1="8" y1="5" x2="57" y2="61" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#111c33"/>
-      <stop offset="1" stop-color="#070b14"/>
+      <stop stop-color="var(--favicon-bg-top)"/>
+      <stop offset="1" stop-color="var(--favicon-bg)"/>
     </linearGradient>
     <linearGradient id="neon" x1="13" y1="17" x2="51" y2="48" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#22d3ee"/>
-      <stop offset=".55" stop-color="#3b82f6"/>
-      <stop offset="1" stop-color="#8b5cf6"/>
+      <stop stop-color="var(--favicon-primary)"/>
+      <stop offset=".55" stop-color="var(--favicon-secondary)"/>
+      <stop offset="1" stop-color="var(--favicon-tertiary)"/>
     </linearGradient>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="1.8" result="blur"/>
@@ -15,9 +25,9 @@
     </filter>
   </defs>
 
-  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bg)" stroke="#22d3ee" stroke-opacity=".28" stroke-width="2"/>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bg)" stroke="var(--favicon-primary)" stroke-opacity=".28" stroke-width="2"/>
   <path d="M23 18 11.5 32 23 46M41 18 52.5 32 41 46" fill="none" stroke="url(#neon)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
-  <path d="m35.5 15-7 34" fill="none" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round"/>
-  <circle cx="32" cy="32" r="6.5" fill="#070b14" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="32" cy="32" r="2.5" fill="#22d3ee" filter="url(#glow)"/>
+  <path d="m35.5 15-7 34" fill="none" stroke="var(--favicon-muted)" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="6.5" fill="var(--favicon-bg)" stroke="var(--favicon-primary)" stroke-width="2"/>
+  <circle cx="32" cy="32" r="2.5" fill="var(--favicon-primary)" filter="url(#glow)"/>
 </svg>
