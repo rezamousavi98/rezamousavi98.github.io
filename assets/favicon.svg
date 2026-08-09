@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <style>
     :root {
-      --favicon-bg-top: #291316;
-      --favicon-bg: #13090b;
-      --favicon-primary: #ff5c72;
-      --favicon-secondary: #ff8b6a;
-      --favicon-tertiary: #e89ab2;
-      --favicon-muted: #bca5a7;
+      --favicon-bg-top: #231a38;
+      --favicon-bg: #100b1d;
+      --favicon-primary: #a78bfa;
+      --favicon-secondary: #818cf8;
+      --favicon-tertiary: #d8b4fe;
+      --favicon-muted: #aaa0bd;
     }
   </style>
   <defs>
