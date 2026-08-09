@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Mohammad Reza — Senior Front-End and WebGIS Engineer building scalable, high-performance geospatial products." />
   <meta name="theme-color" content="#100b1d" />
+  <script>
+    (() => {
+      let savedTheme;
+      try { savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
+      const prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
+      document.documentElement.dataset.theme = savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme
+        : prefersLight ? 'light' : 'dark';
+    })();
+  </script>
   <title>Mohammad Reza Mousavi — Front-End</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -75,6 +85,62 @@
       --page-gutter: 20px;
     }
 
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f8f6fc;
+      --surface: #ffffff;
+      --cyan: #6d28d9;
+      --blue: #4f46e5;
+      --violet: #9333ea;
+      --green: #7e22ce;
+      --text: #21172f;
+      --muted: #655a73;
+      --border: color-mix(in srgb, #2b1e38 12%, transparent);
+      --white: #21172f;
+      --black: #241335;
+      --ink: #ffffff;
+      --panel-deep: #f1ecf7;
+      --panel: #ffffff;
+      --panel-raised: #f5effb;
+      --surface-deep: #eee8f5;
+      --toast-bg: #25133b;
+      --map-core: #e7ddf4;
+      --map-land: #b69add;
+      --map-land-bright: #7c3aed;
+      --neutral-700: #453950;
+      --neutral-600: #594e65;
+      --neutral-550: #665b72;
+      --neutral-500: #6f647b;
+      --neutral-450: #7d7189;
+      --text-soft: #584c65;
+      --text-soft-strong: #493d57;
+      --text-subtle: #50445d;
+      --text-cool: #3f334d;
+      --text-warm: #2b1f38;
+      --text-bright: #21172f;
+      --accent-bright: #7c3aed;
+      --accent-pale: #5b21b6;
+      --accent-map: #7c3aed;
+      --gold: #c026d3;
+      --violet-light: #9333ea;
+      --success-pale: #f3e8ff;
+      --brand-angular: #b91c5c;
+      --brand-typescript: #3730a3;
+      --brand-javascript: #854d0e;
+      --brand-html: #c2410c;
+      --brand-css: #6d28d9;
+      --brand-scss: #be185d;
+      --brand-rxjs: #a21caf;
+      --brand-react: #0369a1;
+      --brand-figma: #7e22ce;
+      --brand-xd: #a21caf;
+      --brand-material: #4338ca;
+      --brand-openlayers: #047857;
+      --brand-ol-ext: #0f766e;
+      --brand-geoserver: #4d7c0f;
+      --brand-gitlab: #c2410c;
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
     body {
@@ -84,6 +150,7 @@
       color: var(--text);
       font-family: "Space Grotesk", Inter, sans-serif;
       line-height: 1.6;
+      transition: background-color .35s ease, color .35s ease;
     }
     main, section, article, .hero > *, .about-grid > *, .project-card, .skill-card { min-width: 0; }
     svg { max-width: 100%; }
@@ -147,7 +214,18 @@
     .nav-link::after { content: ""; position: absolute; left: 50%; bottom: 3px; width: 0; height: 1px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); transition: width .3s, left .3s; }
     .nav-link:hover, .nav-link.active { color: var(--white); }
     .nav-link.active::after { left: 25%; width: 50%; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .theme-toggle { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--surface) 60%, transparent); color: var(--muted); transition: color .2s, border-color .2s, background .2s, transform .2s; cursor: pointer; }
+    .theme-toggle:hover { color: var(--cyan); border-color: color-mix(in srgb, var(--cyan) 32%, transparent); background: color-mix(in srgb, var(--cyan) 6%, var(--surface)); transform: translateY(-1px); }
+    .theme-toggle:focus-visible, .menu-button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .theme-icon-moon { display: none; }
+    :root[data-theme="light"] .theme-icon-sun { display: none; }
+    :root[data-theme="light"] .theme-icon-moon { display: block; }
     .menu-button { display: none; width: 42px; height: 42px; place-items: center; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--surface) 60%, transparent); color: var(--white); }
+
+    :root[data-theme="light"] .role-badge { color: color-mix(in srgb, var(--project-accent) 88%, var(--text)); }
+    :root[data-theme="light"] .blob { opacity: .09; }
+    :root[data-theme="light"] .noise { opacity: .018; }
 
     /* Hero */
     .hero { position: relative; min-height: 100vh; padding: 138px 0 80px; display: grid; grid-template-columns: minmax(0, 760px); justify-content: center; align-items: center; }
@@ -371,9 +449,16 @@
         <a class="nav-link" href="#skills">Skills</a>
         <a class="nav-link" href="#contact">Contact</a>
       </div>
-      <button class="menu-button" id="menuButton" aria-label="Toggle navigation" aria-expanded="false">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-      </button>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+          <svg class="theme-icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>
+          <svg class="theme-icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"/></svg>
+          <span class="sr-only" id="themeToggleLabel">Switch to light theme</span>
+        </button>
+        <button class="menu-button" id="menuButton" aria-label="Toggle navigation" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -487,8 +572,26 @@
   <div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
 
   <script>
-    /* Keep browser chrome synchronized with the CSS palette. */
-    document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    /* Theme preference and browser chrome. */
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleLabel = document.getElementById('themeToggleLabel');
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    const applyTheme = theme => {
+      const isLight = theme === 'light';
+      document.documentElement.dataset.theme = theme;
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      const label = `Switch to ${isLight ? 'dark' : 'light'} theme`;
+      themeToggle.setAttribute('aria-label', label);
+      themeToggle.title = label;
+      themeToggleLabel.textContent = label;
+      themeColor.content = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    };
+    applyTheme(document.documentElement.dataset.theme);
+    themeToggle.addEventListener('click', () => {
+      const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      applyTheme(theme);
+      try { localStorage.setItem('portfolio-theme', theme); } catch {}
+    });
 
     /* Project data and lightweight SVG thumbnails */
     const projects = [
