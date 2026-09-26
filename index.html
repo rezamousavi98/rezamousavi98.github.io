@@ -284,6 +284,7 @@
     .project-category { display: inline-flex; align-items: center; gap: 8px; margin: 1px 0 7px; color: var(--project-accent); font-size: .62rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
     .project-category::before { content: ""; width: 16px; height: 1px; background: currentColor; box-shadow: 0 0 8px currentColor; }
     .project-heading h3 { margin: 0; color: var(--white); font-size: 1.34rem; line-height: 1.18; letter-spacing: -.035em; }
+    .project-badges { display: flex; flex: none; flex-direction: column; align-items: flex-end; gap: 6px; }
     .role-badge { flex: none; max-width: 150px; padding: 5px 8px; border: 1px solid color-mix(in srgb, var(--project-accent) 20%, transparent); border-radius: 7px; background: color-mix(in srgb, var(--project-accent) 6%, transparent); color: color-mix(in srgb, var(--project-accent) 74%, white); font-size: .59rem; font-weight: 600; line-height: 1.35; text-align: right; }
     .project-content p { margin: 18px 0 22px; color: var(--muted); font-size: .85rem; line-height: 1.7; }
     .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
@@ -600,7 +601,8 @@
       { title: 'Geoportal', category: 'Public Spatial Services', role: 'Frontend Lead · Developer', desc: 'A citizen-oriented spatial portal for maps, layers, spatial analysis, and public geographic services, with administration tools for publishing and configuration.', tech: ['Angular','GeoServer','OpenLayers','OGC','Responsive Design'], kind: 2 },
       { title: 'Smart Drilling Management', category: 'Operations & Permits', role: 'Frontend Lead', desc: 'A GIS-powered platform that digitizes permit workflows, prevents underground utility conflicts, and improves cross-organization coordination through spatial analysis.', tech: ['Angular','GIS','OpenLayers','REST API'], kind: 3 },
       { title: 'Geonet', category: 'Spatial Data Discovery', role: 'Frontend Lead · Developer', desc: 'A centralized spatial data catalog for discovering, organizing, managing, and sharing geographic datasets through a unified enterprise reference platform.', tech: ['Angular','GeoServer','OGC'], kind: 4 },
-      { title: 'Embedded Map', category: 'Embeddable GIS', role: 'Developer', desc: 'A lightweight configurable mapping component that gives external systems advanced GIS layers, basemaps, tools, controls, and visualizations with minimal integration effort.', tech: ['Angular','OpenLayers','TypeScript'], kind: 5 }
+      { title: 'Embedded Map', category: 'Embeddable GIS', role: 'Developer', desc: 'A lightweight configurable mapping component that gives external systems advanced GIS layers, basemaps, tools, controls, and visualizations with minimal integration effort.', tech: ['Angular','OpenLayers','TypeScript'], kind: 5 },
+      { title: 'Algorithm Lab', category: 'Interactive Algorithm Visualization', role: 'Developer', personal: true, desc: 'An interactive learning tool for exploring sorting and array, string, hash-table, and tree searching through step-by-step visualization. Deterministic execution histories power replay and timeline navigation, synchronized with pseudocode, algorithm state, and operation metrics.', tech: ['React','TypeScript','Vite','Tailwind CSS'], kind: 5 }
     ];
 
     const projectIcon = kind => [
@@ -616,7 +618,7 @@
       return `
       <article class="project-card glass reveal" style="transition-delay:${(i % 2) * .08}s">
         <div class="project-content">
-          <div class="project-top"><span class="project-icon">${projectIcon(p.kind)}</span><div class="project-title"><span class="project-category">${p.category}</span><div class="project-heading"><h3>${p.title}</h3></div></div><span class="role-badge">${p.role}</span></div>
+          <div class="project-top"><span class="project-icon">${projectIcon(p.kind)}</span><div class="project-title"><span class="project-category">${p.category}</span><div class="project-heading"><h3>${p.title}</h3></div></div><div class="project-badges"><span class="role-badge">${p.role}</span>${p.personal ? '<span class="role-badge">Personal Project</span>' : ''}</div></div>
           <p>${p.desc}</p>
           <div class="chips">${p.tech.map(t => `<span class="chip">${t}</span>`).join('')}</div>
         </div>
