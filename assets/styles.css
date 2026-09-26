@@ -38,3 +38,13 @@ body{isolation:isolate}.ambient{position:fixed;inset:0;z-index:-1;overflow:hidde
 .site-header.scrolled .navigation{border-bottom-color:var(--line)}
 .hero{padding-top:40px;min-height:0}
 @media(max-width:720px){.hero{padding-top:24px}}
+
+/* Availability indicator keeps its green accent in both themes. */
+.hero .status-dot{
+  background:#65dbb5;
+  animation:availability-flash 1.6s ease-in-out infinite;
+}
+@keyframes availability-flash{
+  0%,100%{opacity:1;box-shadow:0 0 12px #65dbb550}
+  50%{opacity:.25;box-shadow:0 0 2px #65dbb515}
+}
