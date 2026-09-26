@@ -30,3 +30,11 @@ body{isolation:isolate}.ambient{position:fixed;inset:0;z-index:-1;overflow:hidde
 [data-theme=light] .ts-keyword{color:#7944af}[data-theme=light] .ts-variable,[data-theme=light] .ts-file-icon{color:#3266a7}[data-theme=light] .ts-string{color:#377746}[data-theme=light] .ts-literal{color:#97501a}
 @media(max-width:1000px) and (min-width:721px){.hero{gap:22px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.editor-code{font-size:10px}.line-number{width:30px;margin-right:8px}.editor-titlebar{font-size:8px}.editor-language{display:none}}
 @media(max-width:720px){.hero{grid-template-columns:minmax(0,1fr);gap:36px}.profile-editor{width:100%;max-width:550px;margin-inline:auto}.editor-code{font-size:clamp(9px,2.45vw,12px)}.editor-titlebar{font-size:8px}.line-number{width:30px;margin-right:9px}.editor-breadcrumb{font-size:8px}}
+
+/* The header gains its surface only after leaving the top of the page. */
+.site-header{background:transparent;backdrop-filter:none;transition:background-color .25s}
+.navigation{border-bottom-color:transparent;transition:border-color .25s}
+.site-header.scrolled{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px)}
+.site-header.scrolled .navigation{border-bottom-color:var(--line)}
+.hero{padding-top:40px;min-height:0}
+@media(max-width:720px){.hero{padding-top:24px}}

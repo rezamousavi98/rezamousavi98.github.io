@@ -52,8 +52,10 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&navLinks.cl
 matchMedia('(min-width: 721px)').addEventListener('change',event=>{if(event.matches)closeMenu();});
 
 const sections=[...document.querySelectorAll('main section[id]')];
+const siteHeader=document.querySelector('.site-header');
 let scrollPending=false;
 function updateActiveSection(){
+  siteHeader.classList.toggle('scrolled', window.scrollY > 16);
   let current='home';
   sections.forEach(section=>{if(section.getBoundingClientRect().top<=160)current=section.id;});
   navLinks.querySelectorAll('a').forEach(link=>{if(link.hash===`#${current}`)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
