@@ -23,14 +23,6 @@ themeToggle.addEventListener('click',()=>{
   updateTheme();
 });
 
-const filters=document.querySelectorAll('.filter');
-filters.forEach(button=>button.addEventListener('click',()=>{
-  filters.forEach(filter=>{const active=filter===button;filter.classList.toggle('active',active);filter.setAttribute('aria-pressed',String(active));});
-  let count=0;
-  document.querySelectorAll('.project-card').forEach(card=>{card.hidden=button.dataset.filter!=='all'&&card.dataset.category!==button.dataset.filter;if(!card.hidden)count++;});
-  document.getElementById('projectStatus').textContent=`Showing ${count} ${button.dataset.filter==='all'?'':button.dataset.filter+' '}project${count===1?'':'s'}.`;
-}));
-
 const menuButton=document.getElementById('menuButton');
 const navLinks=document.getElementById('navLinks');
 function closeMenu(){navLinks.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open navigation');}
